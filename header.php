@@ -33,14 +33,15 @@
 				<?php $header_image = get_header_image();
 				if ( ! empty( $header_image ) ) { ?>
 					<a href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home">
-						<img src="<?php header_image(); ?>" width="<?php echo get_custom_header()->width; ?>" height="<?php echo get_custom_header()->height; ?>" alt="">
+						<img class ="header-img" src="<?php header_image(); ?>" width="100%" alt="">
 					</a>
 				<?php } // end if ( ! empty( $header_image ) ) ?>
 
 
 				<div class="site-branding">
-					<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
-					<p class="site-description lead"><?php bloginfo( 'description' ); ?></p>
+<!-- 					<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
+					<p class="site-description lead"><?php bloginfo( 'description' ); ?></p> -->
+					<p class="site-description lead"><?php bloginfo( 'description');?></p>
 				</div>
 
 			</div>
@@ -64,7 +65,7 @@
 						</button>
 	
 						<!-- Your site title as branding in the menu -->
-						<a class="navbar-brand" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a>
+						<a class="navbar-brand" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home">Home</a>
 					</div>
 
 					<!-- The WordPress Menu goes here -->

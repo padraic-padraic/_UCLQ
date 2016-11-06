@@ -5,8 +5,8 @@
  */
 
 /*!
- * Generated using the Bootstrap Customizer (http://getbootstrap.com/customize/?id=0680f1df4cc5ba13aacae94d16813efd)
- * Config saved to config.json and https://gist.github.com/0680f1df4cc5ba13aacae94d16813efd
+ * Generated using the Bootstrap Customizer (http://getbootstrap.com/customize/?id=1553f476b052889078d148fb73f2691b)
+ * Config saved to config.json and https://gist.github.com/1553f476b052889078d148fb73f2691b
  */
 /*!
  * Bootstrap v3.3.7 (http://getbootstrap.com)
@@ -3567,7 +3567,7 @@ tbody.collapse.in {
 .dropdown-menu > li > a:hover,
 .dropdown-menu > li > a:focus {
   text-decoration: none;
-  color: #262626;
+  color: #edeaea;
   background-color: #4b1625;
 }
 .dropdown-menu > .active > a,
@@ -4519,7 +4519,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
   color: #edeaea;
-  background-color: transparent;
+  background-color: #4b1625;
 }
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
@@ -4560,7 +4560,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
   .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
     color: #edeaea;
-    background-color: transparent;
+    background-color: #4b1625;
   }
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,

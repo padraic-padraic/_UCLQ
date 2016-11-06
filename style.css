@@ -233,7 +233,6 @@ display: block;
  That one is a great example to show that some things are much cleaner and easier to do via just adding some HTML classes.
  In this case, we will add just one CSS class "panel", look for example at the beginning in content.php!
 
-
  == Infinite Scrolling by Jetpack ==
  You can enable this cool feature by simply decommenting the lines below and make sure you use the same classes on the right place in your html..
 
@@ -255,13 +254,40 @@ display: block;
 }
 */
 
-/* Hey, if you don't need my comments anymore, just delete me! :)  */
-.container { background: #f9f9f9; border-right: 1px solid #eee; border-left: 1px solid #eee; }
-
 /* styles for _tk_pagination und _tk_link_pages */
 nav form.tk-page-nav,
 nav .input-group,
 nav .input-group-btn,
 nav .form-control {
     display: inline;
+}
+.container { background: #f9f9f9; border-right: 1px solid #eee; border-left: 1px solid #eee; }
+
+.site-header-inner, .site-navigation-inner{
+	padding-left: 0px;
+	padding-right: 0px;
+	border: 0px solid white;
+}
+#masthead .container {
+	
+}
+
+.header-img{
+	position: relative;
+}
+.site-branding{
+	position:absolute;
+	color: white;
+	top: 5%;
+	left:2px;
+}
+@media (max-width: 1000px){
+	.site-branding{
+		width:50%;
+	}
+}
+@media (max-width: 500px){
+	.lead{
+		font-size: 0.8em;
+	}
 }
