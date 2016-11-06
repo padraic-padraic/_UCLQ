@@ -2,7 +2,7 @@
 /**
  * The Template for displaying all single posts.
  *
- * @package _tk
+ * @package _UCLQ
  */
 
 get_header(); ?>
@@ -11,8 +11,8 @@ get_header(); ?>
 
 		<?php get_template_part( 'content', 'single' ); ?>
 
-		<?php // _tk_content_nav( 'nav-below' ); ?>
-		<?php _tk_pagination(); ?>
+		<?php // _UCLQ_content_nav( 'nav-below' ); ?>
+		<?php _UCLQ_pagination(); ?>
 
 		<?php
 			// If comments are open or we have at least one comment, load up the comment template

@@ -1,5 +1,5 @@
 /*
-Theme Name: _tk
+Theme Name: _UCLQ
 Theme URI: http://themekraft.com/store/_tk-free-wordpress-starter-theme-based-on-twitter-bootstrap/
 Author: ThemeKraft
 Author URI: http://themekraft.com/
@@ -256,7 +256,7 @@ display: block;
 */
 
 /* Hey, if you don't need my comments anymore, just delete me! :)  */
-
+.container { background: #f9f9f9; border-right: 1px solid #eee; border-left: 1px solid #eee; }
 
 /* styles for _tk_pagination und _tk_link_pages */
 nav form.tk-page-nav,

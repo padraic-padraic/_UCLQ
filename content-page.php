@@ -2,7 +2,7 @@
 /**
  * The template used for displaying page content in page.php
  *
- * @package _tk
+ * @package _UCLQ
  */
 ?>
 
@@ -16,7 +16,7 @@
 			<?php the_post_thumbnail(); ?>
 		</div>
 		<?php the_content(); ?>
-		<?php _tk_link_pages(); ?>
+		<?php _UCLQ_link_pages(); ?>
 	</div><!-- .entry-content -->
-	<?php edit_post_link( __( 'Edit', '_tk' ), '<footer class="entry-meta"><span class="edit-link">', '</span></footer>' ); ?>
+	<?php edit_post_link( __( 'Edit', '_UCLQ' ), '<footer class="entry-meta"><span class="edit-link">', '</span></footer>' ); ?>
 </article><!-- #post-## -->

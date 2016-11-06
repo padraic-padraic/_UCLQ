@@ -4,14 +4,14 @@
  *
  * Eventually, some of the functionality here could be replaced by core features
  *
- * @package _tk
+ * @package _UCLQ
  */
 
-if ( ! function_exists( '_tk_content_nav' ) ) :
+if ( ! function_exists( '_UCLQ_content_nav' ) ) :
 /**
  * Display navigation to next/previous pages when applicable
  */
-function _tk_content_nav( $nav_id ) {
+function _UCLQ_content_nav( $nav_id ) {
 	global $wp_query, $post;
 
 	// Don't print empty markup on single pages if there's nowhere to navigate.
@@ -31,22 +31,22 @@ function _tk_content_nav( $nav_id ) {
 
 	?>
 	<nav role="navigation" id="<?php echo esc_attr( $nav_id ); ?>" class="<?php echo $nav_class; ?>">
-		<h1 class="screen-reader-text"><?php _e( 'Post navigation', '_tk' ); ?></h1>
+		<h1 class="screen-reader-text"><?php _e( 'Post navigation', '_UCLQ' ); ?></h1>
 		<ul class="pager">
 
 		<?php if ( is_single() ) : // navigation links for single posts ?>
 
-			<?php previous_post_link( '<li class="nav-previous previous">%link</li>', '<span class="meta-nav">' . _x( '&larr;', 'Previous post link', '_tk' ) . '</span> %title' ); ?>
-			<?php next_post_link( '<li class="nav-next next">%link</li>', '%title <span class="meta-nav">' . _x( '&rarr;', 'Next post link', '_tk' ) . '</span>' ); ?>
+			<?php previous_post_link( '<li class="nav-previous previous">%link</li>', '<span class="meta-nav">' . _x( '&larr;', 'Previous post link', '_UCLQ' ) . '</span> %title' ); ?>
+			<?php next_post_link( '<li class="nav-next next">%link</li>', '%title <span class="meta-nav">' . _x( '&rarr;', 'Next post link', '_UCLQ' ) . '</span>' ); ?>
 
 		<?php elseif ( $wp_query->max_num_pages > 1 && ( is_home() || is_archive() || is_search() ) ) : // navigation links for home, archive, and search pages ?>
 
 			<?php if ( get_next_posts_link() ) : ?>
-			<li class="nav-previous previous"><?php next_posts_link( __( '<span class="meta-nav">&larr;</span> Older posts', '_tk' ) ); ?></li>
+			<li class="nav-previous previous"><?php next_posts_link( __( '<span class="meta-nav">&larr;</span> Older posts', '_UCLQ' ) ); ?></li>
 			<?php endif; ?>
 
 			<?php if ( get_previous_posts_link() ) : ?>
-			<li class="nav-next next"><?php previous_posts_link( __( 'Newer posts <span class="meta-nav">&rarr;</span>', '_tk' ) ); ?></li>
+			<li class="nav-next next"><?php previous_posts_link( __( 'Newer posts <span class="meta-nav">&rarr;</span>', '_UCLQ' ) ); ?></li>
 			<?php endif; ?>
 
 		<?php endif; ?>
@@ -55,22 +55,22 @@ function _tk_content_nav( $nav_id ) {
 	</nav><!-- #<?php echo esc_html( $nav_id ); ?> -->
 	<?php
 }
-endif; // _tk_content_nav
+endif; // _UCLQ_content_nav
 
-if ( ! function_exists( '_tk_comment' ) ) :
+if ( ! function_exists( '_UCLQ_comment' ) ) :
 /**
  * Template for comments and pingbacks.
  *
  * Used as a callback by wp_list_comments() for displaying the comments.
  */
-function _tk_comment( $comment, $args, $depth ) {
+function _UCLQ_comment( $comment, $args, $depth ) {
 	$GLOBALS['comment'] = $comment;
 
 	if ( 'pingback' == $comment->comment_type || 'trackback' == $comment->comment_type ) : ?>
 
 	<li id="comment-<?php comment_ID(); ?>" <?php comment_class( 'media' ); ?>>
 		<div class="comment-body">
-			<?php _e( 'Pingback:', '_tk' ); ?> <?php comment_author_link(); ?> <?php edit_comment_link( __( 'Edit', '_tk' ), '<span class="edit-link">', '</span>' ); ?>
+			<?php _e( 'Pingback:', '_UCLQ' ); ?> <?php comment_author_link(); ?> <?php edit_comment_link( __( 'Edit', '_UCLQ' ), '<span class="edit-link">', '</span>' ); ?>
 		</div>
 
 	<?php else : ?>
@@ -85,19 +85,19 @@ function _tk_comment( $comment, $args, $depth ) {
 				<div class="media-body-wrap panel panel-default">
 
 					<div class="panel-heading">
-						<h5 class="media-heading"><?php printf( __( '%s <span class="says">says:</span>', '_tk' ), sprintf( '<cite class="fn">%s</cite>', get_comment_author_link() ) ); ?></h5>
+						<h5 class="media-heading"><?php printf( __( '%s <span class="says">says:</span>', '_UCLQ' ), sprintf( '<cite class="fn">%s</cite>', get_comment_author_link() ) ); ?></h5>
 						<div class="comment-meta">
 							<a href="<?php echo esc_url( get_comment_link( $comment->comment_ID ) ); ?>">
 								<time datetime="<?php comment_time( 'c' ); ?>">
-									<?php printf( _x( '%1$s at %2$s', '1: date, 2: time', '_tk' ), get_comment_date(), get_comment_time() ); ?>
+									<?php printf( _x( '%1$s at %2$s', '1: date, 2: time', '_UCLQ' ), get_comment_date(), get_comment_time() ); ?>
 								</time>
 							</a>
-							<?php edit_comment_link( __( '<span style="margin-left: 5px;" class="glyphicon glyphicon-edit"></span> Edit', '_tk' ), '<span class="edit-link">', '</span>' ); ?>
+							<?php edit_comment_link( __( '<span style="margin-left: 5px;" class="glyphicon glyphicon-edit"></span> Edit', '_UCLQ' ), '<span class="edit-link">', '</span>' ); ?>
 						</div>
 					</div>
 
 					<?php if ( '0' == $comment->comment_approved ) : ?>
-						<p class="comment-awaiting-moderation"><?php _e( 'Your comment is awaiting moderation.', '_tk' ); ?></p>
+						<p class="comment-awaiting-moderation"><?php _e( 'Your comment is awaiting moderation.', '_UCLQ' ); ?></p>
 					<?php endif; ?>
 
 					<div class="comment-content panel-body">
@@ -124,15 +124,15 @@ function _tk_comment( $comment, $args, $depth ) {
 	<?php
 	endif;
 }
-endif; // ends check for _tk_comment()
+endif; // ends check for _UCLQ_comment()
 
-if ( ! function_exists( '_tk_the_attached_image' ) ) :
+if ( ! function_exists( '_UCLQ_the_attached_image' ) ) :
 /**
  * Prints the attached image with a link to the next attached image.
  */
-function _tk_the_attached_image() {
+function _UCLQ_the_attached_image() {
 	$post                = get_post();
-	$attachment_size     = apply_filters( '_tk_attachment_size', array( 1200, 1200 ) );
+	$attachment_size     = apply_filters( '_UCLQ_attachment_size', array( 1200, 1200 ) );
 	$next_attachment_url = wp_get_attachment_url();
 
 	/**
@@ -178,11 +178,11 @@ function _tk_the_attached_image() {
 }
 endif;
 
-if ( ! function_exists( '_tk_posted_on' ) ) :
+if ( ! function_exists( '_UCLQ_posted_on' ) ) :
 /**
  * Prints HTML with meta information for the current post-date/time and author.
  */
-function _tk_posted_on() {
+function _UCLQ_posted_on() {
 	$time_string = '<time class="entry-date published" datetime="%1$s">%2$s</time>';
 
 	$time_string = sprintf( $time_string,
@@ -207,14 +207,14 @@ function _tk_posted_on() {
 			esc_attr( get_the_time() ),
 			$time_string_update
 		);
-		$time_string .= __(', updated on ', '_tk') . $time_string_update;
+		$time_string .= __(', updated on ', '_UCLQ') . $time_string_update;
 	}
 
-	printf( __( '<span class="posted-on">Posted on %1$s</span><span class="byline"> by %2$s</span>', '_tk' ),
+	printf( __( '<span class="posted-on">Posted on %1$s</span><span class="byline"> by %2$s</span>', '_UCLQ' ),
 		$time_string,
 		sprintf( '<span class="author vcard"><a class="url fn n" href="%1$s" title="%2$s">%3$s</a></span>',
 			esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
-			esc_attr( sprintf( __( 'View all posts by %s', '_tk' ), get_the_author() ) ),
+			esc_attr( sprintf( __( 'View all posts by %s', '_UCLQ' ), get_the_author() ) ),
 			esc_html( get_the_author() )
 		)
 	);
@@ -224,7 +224,7 @@ endif;
 /**
  * Returns true if a blog has more than 1 category
  */
-function _tk_categorized_blog() {
+function _UCLQ_categorized_blog() {
 	if ( false === ( $all_the_cool_cats = get_transient( 'all_the_cool_cats' ) ) ) {
 		// Create an array of all the categories that are attached to posts
 		$all_the_cool_cats = get_categories( array(
@@ -238,26 +238,26 @@ function _tk_categorized_blog() {
 	}
 
 	if ( '1' != $all_the_cool_cats ) {
-		// This blog has more than 1 category so _tk_categorized_blog should return true
+		// This blog has more than 1 category so _UCLQ_categorized_blog should return true
 		return true;
 	} else {
-		// This blog has only 1 category so _tk_categorized_blog should return false
+		// This blog has only 1 category so _UCLQ_categorized_blog should return false
 		return false;
 	}
 }
 
 /**
- * Flush out the transients used in _tk_categorized_blog
+ * Flush out the transients used in _UCLQ_categorized_blog
  */
-function _tk_category_transient_flusher() {
+function _UCLQ_category_transient_flusher() {
 	// Like, beat it. Dig?
 	delete_transient( 'all_the_cool_cats' );
 }
-add_action( 'edit_category', '_tk_category_transient_flusher' );
-add_action( 'save_post',     '_tk_category_transient_flusher' );
+add_action( 'edit_category', '_UCLQ_category_transient_flusher' );
+add_action( 'save_post',     '_UCLQ_category_transient_flusher' );
 
 
-// _tk Bootstrap pagination function
+// _UCLQ Bootstrap pagination function
 // original: http://fellowtuts.com/wordpress/bootstrap-3-pagination-in-wordpress/
 /**
  * 
@@ -266,7 +266,7 @@ add_action( 'save_post',     '_tk_category_transient_flusher' );
  * @param int $pages
  * @param type $range
  */
-function _tk_pagination() {
+function _UCLQ_pagination() {
     global $paged, $wp_query;
 
     if (empty($paged)) {
@@ -334,11 +334,11 @@ function _tk_pagination() {
 }
 
 /**
- * _tk_link_pages()
+ * _UCLQ_link_pages()
  * Creates bootstraped pagination for paginated posts
  * 
  */
-function _tk_link_pages() {
+function _UCLQ_link_pages() {
     global $numpages, $page, $post;
 
     if (1 != $numpages):
@@ -352,11 +352,11 @@ function _tk_link_pages() {
                     <span aria-hidden="true"><?php _e('Page', 'tk'); ?> <?php echo $page; ?> <?php _e('of', 'tk'); ?> <?php echo $numpages; ?></span>
                 </span>
             </li>
-            <li><?php echo _tk_link_page(1, 'First'); ?>&laquo;<span class="hidden-xs"> <?php _e('First', 'tk'); ?></span></a></li>
+            <li><?php echo _UCLQ_link_page(1, 'First'); ?>&laquo;<span class="hidden-xs"> <?php _e('First', 'tk'); ?></span></a></li>
             <?php if ($page == 1): ?>
                 <li class="disabled"><span>&lsaquo;<span class="hidden-xs aria-hidden"> <?php _e('Previous', 'tk'); ?></span></span></li>
             <?php else: ?>
-                <li><?php echo _tk_link_page($page - 1, 'Previous'); ?>&lsaquo;<span class="hidden-xs"> <?php _e('Previous', 'tk'); ?></span></a></li>                        
+                <li><?php echo _UCLQ_link_page($page - 1, 'Previous'); ?>&lsaquo;<span class="hidden-xs"> <?php _e('Previous', 'tk'); ?></span></a></li>                        
             <?php endif; ?>
 
             <?php $start_page = min(max($page - 2, 1), max($numpages - 4, 1)); ?>
@@ -368,16 +368,16 @@ function _tk_link_pages() {
                         <span><?php echo $i; ?><span class="sr-only">(current)</span></span>
                     </li>
                 <?php else: ?>
-                    <li><?php echo _tk_link_page($i) . $i . '</a>'; ?></li>
+                    <li><?php echo _UCLQ_link_page($i) . $i . '</a>'; ?></li>
                 <?php endif; ?>
             <?php endfor; ?>
 
             <?php if ($page == $numpages): ?>
                 <li class="disabled"><span><span class="hidden-xs aria-hidden"><?php _e('Next', 'tk'); ?> </span>&rsaquo;</span></li>
             <?php else: ?>
-                <li><?php echo _tk_link_page($page + 1, 'Next'); ?><span class="hidden-xs"><?php _e('Next', 'tk'); ?> </span>&rsaquo;</a></li>
+                <li><?php echo _UCLQ_link_page($page + 1, 'Next'); ?><span class="hidden-xs"><?php _e('Next', 'tk'); ?> </span>&rsaquo;</a></li>
             <?php endif; ?>
-            <li><?php echo _tk_link_page($numpages, 'Last'); ?><span class="hidden-xs"><?php _e('Last', 'tk'); ?> </span>&raquo;</a></li>
+            <li><?php echo _UCLQ_link_page($numpages, 'Last'); ?><span class="hidden-xs"><?php _e('Last', 'tk'); ?> </span>&raquo;</a></li>
             <li>
                 <form action="<?php echo get_permalink($post->ID); ?>" method="get" class="tk-page-nav" id="tk-paging-<?php echo $post->ID; ?>">
                     <div class="input-group">
@@ -396,7 +396,7 @@ function _tk_link_pages() {
 }
 
 /**
- * _tk_link_page
+ * _UCLQ_link_page
  * 
  * Customized _wp_link_page from wp-includes/post_template.php
  * 
@@ -408,7 +408,7 @@ function _tk_link_pages() {
  * @param string $class
  * @return string
  */
-function _tk_link_page($i, $aria_label = '', $class = '') {
+function _UCLQ_link_page($i, $aria_label = '', $class = '') {
     global $wp_rewrite, $page, $numpages;
     $post       = get_post();
     $query_args = array();
