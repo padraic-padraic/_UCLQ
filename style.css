@@ -164,6 +164,17 @@ object {
 }
 
 /* Navigation */
+@media (min-width:768px){
+    .navbar{
+        border-top-right-radius: 0px;
+        border-top-left-radius: 0px;
+        border-bottom-right-radius: 4px;
+        border-bottom-left-radius: 4px;
+    }
+}
+nav div.container{
+    border: 0;
+}
 
 .dropdown-submenu{position:relative;}
 .dropdown-submenu>.dropdown-menu{top:0;left:100%;-webkit-border-radius:0 6px 6px 6px;-moz-border-radius:0 6px 6px 6px;border-radius:0 6px 6px 6px;}
@@ -269,25 +280,40 @@ nav .form-control {
 	border: 0px solid white;
 }
 #masthead .container {
+    border: 0;
+    padding-bottom: 0px;
 	
 }
 
 .header-img{
 	position: relative;
+	z-index: 10;
 }
 .site-branding{
 	position:absolute;
 	color: white;
 	top: 5%;
 	left:2px;
+	z-index: 15;
 }
 @media (max-width: 1000px){
 	.site-branding{
 		width:50%;
+		font-size: 0.9em;
 	}
 }
 @media (max-width: 500px){
 	.lead{
-		font-size: 0.8em;
+		font-size: 0.7em;
+	}
+}
+/* Styles for the header carousel*/
+#header-carousel {
+	margin-top: -80px;
+	z-index: 1;
+}
+@media (max-width: 500px){
+	#header-carousel {
+		margin-top: -50px;
 	}
 }
