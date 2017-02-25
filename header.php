@@ -73,25 +73,27 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-  
+
             <!-- Your site title as branding in the menu -->
             <a class="navbar-brand" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home">Home</a>
           </div>
 
-          <!-- The WordPress Menu goes here -->
-          <?php wp_nav_menu(
-            array(
-              'theme_location'  => 'primary',
-              'depth'             => 2,
-              'container'         => 'div',
-              'container_id'      => 'navbar-collapse',
-              'container_class'   => 'collapse navbar-collapse',
-              'menu_class'    => 'nav navbar-nav',
-              'fallback_cb'     => 'wp_bootstrap_navwalker::fallback',
-              'menu_id'     => 'main-menu',
-              'walker'      => new wp_bootstrap_navwalker()
-            )
-          ); ?>
+
+					<!-- The WordPress Menu goes here -->
+					<?php wp_nav_menu(
+						array(
+							'theme_location' 	=> 'primary',
+							'depth'             => 2,
+							'container'         => 'nav',
+							'container_id'      => 'navbar-collapse',
+							'container_class'   => 'collapse navbar-collapse',
+							'menu_class' 		=> 'nav navbar-nav',
+							'fallback_cb' 		=> 'wp_bootstrap_navwalker::fallback',
+							'menu_id'			=> 'main-menu',
+							'walker' 			=> new wp_bootstrap_navwalker()
+						)
+					); ?>
+
 
         </div><!-- .navbar -->
       </div>
@@ -104,4 +106,3 @@
   <div class="container">
     <div class="row">
       <div id="content" class="main-content-inner col-sm-12 col-md-8">
-
