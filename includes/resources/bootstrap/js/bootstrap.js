@@ -1,12 +1,12 @@
 /*!
  * Bootstrap v3.3.7 (http://getbootstrap.com)
- * Copyright 2011-2016 Twitter, Inc.
+ * Copyright 2011-2017 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 
 /*!
- * Generated using the Bootstrap Customizer (http://getbootstrap.com/customize/?id=1553f476b052889078d148fb73f2691b)
- * Config saved to config.json and https://gist.github.com/1553f476b052889078d148fb73f2691b
+ * Generated using the Bootstrap Customizer (http://getbootstrap.com/customize/?id=6c8f903d5de9afcaac13372406723d07)
+ * Config saved to config.json and https://gist.github.com/6c8f903d5de9afcaac13372406723d07
  */
 if (typeof jQuery === 'undefined') {
   throw new Error('Bootstrap\'s JavaScript requires jQuery')

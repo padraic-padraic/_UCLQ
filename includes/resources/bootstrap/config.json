@@ -11,7 +11,7 @@
     "@brand-info": "#5bc0de",
     "@brand-warning": "#f0ad4e",
     "@brand-danger": "#d9534f",
-    "@body-bg": "#939393",
+    "@body-bg": "#fafafa",
     "@text-color": "@gray-dark",
     "@link-color": "@brand-primary",
     "@link-hover-color": "darken(@link-color, 15%)",
@@ -160,7 +160,7 @@
     "@navbar-default-brand-hover-color": "darken(@navbar-default-brand-color, 10%)",
     "@navbar-default-brand-hover-bg": "transparent",
     "@navbar-default-toggle-hover-bg": "#ddd",
-    "@navbar-default-toggle-icon-bar-bg": "#888",
+    "@navbar-default-toggle-icon-bar-bg": "lighten(#651D32, 13.5%)",
     "@navbar-default-toggle-border-color": "#ddd",
     "@navbar-inverse-color": "lighten(@gray-light, 15%)",
     "@navbar-inverse-bg": "#222",
@@ -431,5 +431,5 @@
     "scrollspy.js",
     "transition.js"
   ],
-  "customizerUrl": "http://getbootstrap.com/customize/?id=1553f476b052889078d148fb73f2691b"
+  "customizerUrl": "http://getbootstrap.com/customize/?id=6c8f903d5de9afcaac13372406723d07"
 }

@@ -26,7 +26,7 @@
 
 <header id="masthead" class="site-header" role="banner">
 <?php // substitute the class "container-fluid" below if you want a wider content area ?>
-  <div class="container">
+  <div class="container-fluid">
     <div class="row">
       <div class="site-header-inner col-sm-12">
 
@@ -40,19 +40,9 @@
 
 
         <div class="site-branding">
-<!--          <h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
-          <p class="site-description lead"><?php bloginfo( 'description' ); ?></p> -->
-          <p class="site-description lead"><?php bloginfo( 'description');?></p>
+         <h3 class="site-title"><?php bloginfo( 'name' ); ?>: <span class="site-description lead"><?php bloginfo( 'description');?></span></h3>
         </div>
-        <div id="header-carousel" class="carousel slide" data-ride="carousel">
-          <div class="carousel-inner" role="listbox">
-            <div class="item active">
-              <img src="http://www.uclq.org/wp-content/uploads/2015/01/spin-chains-art-banner.jpg" alt="spin-chains">
-            </div>
-            <div class="item">
-              <img src="http://www.uclq.org/wp-content/uploads/2015/01/graphene.jpg" alt="graphene">
-            </div>
-          </div>
+        <!-- <div id="header_spacer"> -->
         </div>
       </div><!--site header inner-->
     </div><!--row-->
@@ -61,7 +51,7 @@
 
 <nav class="site-navigation">
 <?php // substitute the class "container-fluid" below if you want a wider content area ?>
-  <div class="container">
+  <div class="container-fluid">
     <div class="row">
       <div class="site-navigation-inner col-sm-12">
         <div class="navbar navbar-default">
@@ -103,6 +93,6 @@
 
 <div class="main-content">
 <?php // substitute the class "container-fluid" below if you want a wider content area ?>
-  <div class="container">
+  <div class="container-fluid">
     <div class="row">
       <div id="content" class="main-content-inner col-sm-12 col-md-8">
