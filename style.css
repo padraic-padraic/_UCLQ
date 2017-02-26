@@ -165,10 +165,10 @@ object {
 
 /* Navigation */
 .navbar{
-    border-top:3px solid #4b1625 !important;
+    border-top:5px solid #4b1625 !important;
     border-left:0px;
     border-right: 0px;
-    border-bottom: 10px solid #4b1625 !important;
+    border-bottom: 5px solid #4b1625 !important;
     margin:0px !important;
     /*padding-bottom: 20px !important;*/
 }
@@ -293,7 +293,7 @@ nav .form-control {
     padding-bottom: 0px;
 	
 }
-
+/* Extensions */
 #header_spacer{
 	height:5%;
 	width: 100%;
@@ -327,19 +327,18 @@ nav .form-control {
 }
 
 #story-carousel-row{
-	height:200px;
+	height:300px;
 	width:100%;
+	padding:0px 0px 10px;
 	background-color: #4b1625;
-	padding:0px;
 }
 
-/* Styles for the header carousel*/
-#header-carousel {
-	margin-top: -80px;
-	z-index: 1;
+.content-inner-row {
+	margin: 10px 0px 10px;
 }
-@media (max-width: 500px){
-	#header-carousel {
-		margin-top: -50px;
-	}
+
+.equal, .equal > div[class*='col-'] {  
+    display: -webkit-flex;
+    display: flex;
+    flex:1 1 auto;
 }
