@@ -337,8 +337,13 @@ nav .form-control {
 	margin: 10px 0px 10px;
 }
 
+.fp-title{
+	color:#651d32;
+}
+
 .equal, .equal > div[class*='col-'] {  
     display: -webkit-flex;
     display: flex;
-    flex:1 1 auto;
+    flex:1 1 max-content;
+    flex-wrap: wrap;
 }
