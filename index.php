@@ -18,20 +18,62 @@ get_header(); ?>
       <div id="story-carousel-row" class="col-sm-12">
         <div id="story-carousel" class="carousel slide" data-ride="carousel">
           <div class="carousel-inner" role="listbox">
-            <div class="item active">
-              <img style="height:300px; width:100%;" src="http://i.giphy.com/ZkYiNL52YuXYY.gif" alt="...">
-              <div class="carousel-caption">
-                Boop
+          <?php
+          $sticky_args=array('post__in'=>get_option('sticky_posts'),
+                             'ignore_sticky_posts'=>1
+                            );
+          $sticky_posts = new WP_Query($sticky_args);
+          if ($sticky_posts->have_posts()) {
+            while ($sticky_posts->have_posts()){
+              $sticky_posts->the_post(); ?>
+              <div class="item <?php if ($sticky_posts->current_post==0){
+                 echo "active";
+                }?>">
+                <img class="carousel-image" src="
+                <?php $thumbnail = wp_get_attachment_image_src(
+                          get_post_thumbnail_id($post->ID), 'full');
+                        echo $thumbnail[0];?>" alt="...">
+                <!-- <div class="carousel-caption"><?php echo the_excerpt()?></div>  -->
               </div>
-            </div>
-            <div class="item">
-              <img style="height:300px; width:100%;" src="http://i.giphy.com/yhfTY8JL1wIAE.gif" alt="...">
-              <div class="carousel-caption">
-                Beep
-              </div>
+          <?php  }
+            // wp_reset_postdata();
+          }
+          rewind_posts();?>
+            <div class="sticky-posts">
+              <h3>Top Stories</h3>
+              <div class="carousel-controls">
+              <?php
+                while ($sticky_posts->have_posts()) {
+                    $sticky_posts->the_post();?>
+                  <div class="carousel-row <?php
+                        if ($sticky_posts->current_post==0){
+                          echo "active";}?>"
+                       data-target="#story-carousel"
+                       data-slide-to="<?php echo $sticky_posts->current_post?>">
+                    <div class="carousel-indicator">&nbsp;</div>
+                    <div class="carousel-headline">
+                      <?php echo get_the_title();?>
+                    </div>
+                  </div>
+                  <?php }
+                wp_reset_postdata();
+                ?>
+                </div>
             </div>
           </div>
         </div>
+        <script type="application/javascript">
+         (function($) {
+             $('#story-carousel').on('slid.bs.carousel', function (event) {
+               var nextactiveslide = $(event.relatedTarget).index();
+               var $btns = $('.carousel-controls');
+               var $active = $btns.find("[data-slide-to='" + nextactiveslide + "']");
+               console.log($active);
+               $btns.find('.carousel-row').removeClass('active');
+               $active.addClass('active');
+             });
+         })(jQuery);
+        </script>
       </div>
     </div>
     <div class="row">
@@ -54,21 +96,33 @@ get_header(); ?>
           </div>
         </div>
         <div class="equal row content-inner-row">
-          <?php $recent_args = array( 'numberposts'=>3,
-                                      'category_name'=>'News');
-          $recent_posts = wp_get_recent_posts($recent_args);
-          foreach ($recent_posts as $recent) { ?>
-            <div class="col-sm-4">
-              <div class="panel panel-default">
-                  <div class="panel-body">
-                   <a href="<?php echo get_permalink($recent["ID"]);?>">
-                     <h3><?php echo $recent["post_title"];?></h3>
-                   </a>
-                  </div>
+          <?php $recent_args = array( 'posts_per_page'=>3,
+                                      'category_name'=>'News',
+                                      'ignore_sticky_posts'=>1,
+                                      'post__not_in'=>get_option('sticky_posts'));
+          $recent_posts = new WP_Query($recent_args);
+          if ($recent_posts->have_posts() ) {
+            while ($recent_posts->have_posts()){
+              $recent_posts->the_post();?>
+              <div class="col-sm-4">
+                <div class="panel panel-default">
+                    <div class="panel-body top-news">
+<!--                     style="background-image: url(<?php
+                        $thumbnail = wp_get_attachment_image_src(
+                          get_post_thumbnail_id($post->ID), 'full');
+                        echo $thumbnail[0];?>);background-position: center;background-size: cover;
+                        background-repeat: no-repeat;
+                      "> -->
+                     <a href="<?php echo get_the_permalink();?>">
+                       <h3><?php echo get_the_title()?></h3>
+                     </a>
+                    </div>
+                </div>
               </div>
-            </div>
-          <?php 
-          wp_reset_query();}?>
+          <?php
+            }
+            wp_reset_postdata();
+          }?>
         </div>
         <div class="row content-inner-row">
           <div id="ques2t" class="col-sm-12">
