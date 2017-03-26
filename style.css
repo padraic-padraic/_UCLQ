@@ -295,55 +295,43 @@ nav .form-control {
 }
 /* Extensions */
 #header_spacer{
-	height:5%;
-	width: 100%;
-	margin:0;
-	border: 0;
-	padding: 3%;
-	background-color: #651D32;
+  height:5%;
+  width: 100%;
+  margin:0;
+  border: 0;
+  padding: 3%;
+  background-color: #651D32;
 }
 
 .header-img{
-	position: relative;
-	z-index: 10;
+  position: relative;
+  z-index: 10;
 }
 .site-branding{
-	position:absolute;
-	color: white;
-	top: 5%;
-	left:2px;
-	z-index: 15;
+  position:absolute;
+  color: white;
+  top: 5%;
+  left:2px;
+  z-index: 15;
 }
 @media (max-width: 1000px){
-	.site-branding{
-		width:50%;
-		font-size: 0.9em;
-	}
+  .site-branding{
+    width:50%;
+    font-size: 0.9em;
+  }
 }
 @media (max-width: 500px){
-	.lead{
-		font-size: 0.7em;
-	}
-}
-
-#story-carousel-row{
-	height:500px;
-	width:100%;
-	padding:0px 0px 10px;
-	background-color: #ffffff;
-}
-
-.carousel-image{
-	height:500px !important;
-	width:100%;
+  .lead{
+    font-size: 0.7em;
+  }
 }
 
 .content-inner-row {
-	margin: 10px 0px 10px;
+  margin: 10px 0px 10px;
 }
 
 .fp-title{
-	color:#651d32;
+  color:#651d32;
 }
 
 .equal, .equal > div[class*='col-'] {
@@ -357,6 +345,26 @@ nav .form-control {
   padding: 0px;
 }
 
+#story-carousel-row{
+  height:400px;
+  width:100%;
+  padding:0px 0px 10px;
+  background-color: #ffffff;
+}
+
+.carousel-image{
+  height:400px !important;
+  width:100%;
+}
+
+.carousel-caption{
+  text-align: left;
+  position:absolute;
+  left:10px;
+  bottom: 10px;
+  width: 50%;
+}
+
 .carousel-row{
   height: 100px;
   padding-top:20px;
@@ -365,6 +373,10 @@ nav .form-control {
   margin-right:2px;
   border-bottom: 1px solid white;
   cursor:pointer;
+}
+
+.carousel-row:nth-of-type(1){
+  border-top: 1px solid white;
 }
 
 .carousel-row:nth-of-type(3){
@@ -393,21 +405,26 @@ nav .form-control {
   left: auto;
   text-align: right;
 }
+
+.carousel-row:hover .carousel-headline{
+  text-decoration: underline;
+}
+
 .sticky-posts {
-	position: absolute;
-	top 0;
-	bottom:0;
-	right:0;
-	left:auto;
-	height:100%;
-	width:20%;
-	background-color: rgba(0,0,0,0.95);
-	color: #ffffff;
-	text-align: center;
+  position: absolute;
+  top: 0;
+  bottom:0;
+  right:0;
+  left:auto;
+  height:100%;
+  width:20%;
+  background-color: rgba(0,0,0,0.95);
+  color: #ffffff;
+  text-align: center;
 }
 
 .bullet {
-	width:10px;
-	height:10px;
-	border: 2px solid #651D32;
+  width:10px;
+  height:10px;
+  border: 2px solid #651D32;
 }

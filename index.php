@@ -26,14 +26,18 @@ get_header(); ?>
           if ($sticky_posts->have_posts()) {
             while ($sticky_posts->have_posts()){
               $sticky_posts->the_post(); ?>
-              <div class="item <?php if ($sticky_posts->current_post==0){
+             <div class="item <?php if ($sticky_posts->current_post==0){
                  echo "active";
                 }?>">
-                <img class="carousel-image" src="
-                <?php $thumbnail = wp_get_attachment_image_src(
-                          get_post_thumbnail_id($post->ID), 'full');
-                        echo $thumbnail[0];?>" alt="...">
-                <!-- <div class="carousel-caption"><?php echo the_excerpt()?></div>  -->
+              <?php $thumbnail = wp_get_attachment_image_src(
+                          get_post_thumbnail_id($post->ID), 'full');?>
+                <a href="<?php echo the_permalink();?>">
+                  <div class="carousel-image" style="background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,1)), url('<?php echo $thumbnail[0];?>');
+                                                     background-repeat: no repeat;
+                                                     background-size: 100% 100%;">
+                  </div>
+                  <div class="carousel-caption"><?php echo the_excerpt()?></div>
+                </a>
               </div>
           <?php  }
             // wp_reset_postdata();
@@ -80,10 +84,8 @@ get_header(); ?>
       <div id="content" class="main-content-inner col-sm-12 col-md-8">
         <div class="row content-inner-row">
           <div id="about-us" class="col-sm-12">
+            <h1 class="fp-title">About Us</h1>
             <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="fp-title panel-title">About Us</h3>
-              </div>
               <div class="panel-body">
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
               </div>
@@ -92,7 +94,7 @@ get_header(); ?>
         </div>
         <div class="row content-inner-row">
           <div class="col-sm-12">
-            <h1 class="fp-title">Top News</h1>
+            <h1 class="fp-title">Recent News</h1>
           </div>
         </div>
         <div class="equal row content-inner-row">
