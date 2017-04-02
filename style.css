@@ -330,21 +330,6 @@ nav .form-control {
   margin: 10px 0px 10px;
 }
 
-.fp-title{
-  color:#651d32;
-}
-
-.equal, .equal > div[class*='col-'] {
-    display: -webkit-flex;
-    display: flex;
-    flex:1 1 max-content;
-    flex-wrap: wrap;
-}
-
-.top-news {
-  padding: 0px;
-}
-
 #story-carousel-row{
   height:400px;
   width:100%;
@@ -385,7 +370,8 @@ nav .form-control {
 
 .carousel-indicator{
   text-align: left;
-  border: 2px solid #651d32;
+  /* border: 2px solid #651d32; */
+  border: 2px solid #ba355c;
   height: 20px;
   width:  20px;
   position: absolute;
@@ -393,7 +379,8 @@ nav .form-control {
 }
 
 .active > .carousel-indicator{
-  background-color: #651d32;
+  /* background-color: #651d32; */
+  background-color: #ba355c;
 }
 
 .carousel-headline{
@@ -427,4 +414,27 @@ nav .form-control {
   width:10px;
   height:10px;
   border: 2px solid #651D32;
+}
+
+.odd{
+  background-color:#ba355c !important;
+}
+
+.even{
+  background-color:#4b1625 !important;
+}
+
+.fp-title{
+  color:#ffffff;
+}
+
+.equal, .equal > div[class*='col-'] {
+  display: -webkit-flex;
+  display: flex;
+  flex:1 1 max-content;
+  flex-wrap: wrap;
+}
+
+.news-thumb{
+  height:200px!important;
 }

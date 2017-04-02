@@ -84,8 +84,10 @@ get_header(); ?>
       <div id="content" class="main-content-inner col-sm-12 col-md-8">
         <div class="row content-inner-row">
           <div id="about-us" class="col-sm-12">
-            <h1 class="fp-title">About Us</h1>
             <div class="panel panel-default">
+              <div class="panel-heading odd">
+                  <h1 class="fp-title"> About Us </h1>
+              </div>
               <div class="panel-body">
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
               </div>
@@ -94,43 +96,47 @@ get_header(); ?>
         </div>
         <div class="row content-inner-row">
           <div class="col-sm-12">
-            <h1 class="fp-title">Recent News</h1>
-          </div>
-        </div>
-        <div class="equal row content-inner-row">
-          <?php $recent_args = array( 'posts_per_page'=>3,
-                                      'category_name'=>'News',
-                                      'ignore_sticky_posts'=>1,
-                                      'post__not_in'=>get_option('sticky_posts'));
-          $recent_posts = new WP_Query($recent_args);
-          if ($recent_posts->have_posts() ) {
-            while ($recent_posts->have_posts()){
-              $recent_posts->the_post();?>
-              <div class="col-sm-4">
-                <div class="panel panel-default">
-                    <div class="panel-body top-news">
-<!--                     style="background-image: url(<?php
-                        $thumbnail = wp_get_attachment_image_src(
-                          get_post_thumbnail_id($post->ID), 'full');
-                        echo $thumbnail[0];?>);background-position: center;background-size: cover;
-                        background-repeat: no-repeat;
-                      "> -->
-                     <a href="<?php echo get_the_permalink();?>">
-                       <h3><?php echo get_the_title()?></h3>
-                     </a>
-                    </div>
-                </div>
+            <div class="panel panel-default">
+              <div class="panel-heading even">
+                <h1 class="fp-title">Recent News</h1>
               </div>
-          <?php
-            }
-            wp_reset_postdata();
-          }?>
+              <div class="panel-body">
+                <div class="equal row">
+                <?php $recent_args = array( 'posts_per_page'=>3,
+                                            'category_name'=>'News',
+                                            'ignore_sticky_posts'=>1,
+                                            'post__not_in'=>get_option('sticky_posts'));
+                      $recent_posts = new WP_Query($recent_args);
+                      if ($recent_posts->have_posts() ) {
+                        while ($recent_posts->have_posts()){
+                          $recent_posts->the_post();
+                          $thumbnail = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'full');
+                ?>
+                  <div class="col-md-4 col-sm-12">
+                    <div class="thumbnail">
+                      <img class="news-thumb" src="<?php echo $thumbnail[0];?>">
+                      <a href="<?php echo get_the_permalink();?>">
+                        <div class="caption">
+                          <p><?php echo get_the_title();?></p>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+               <?php
+                       }
+                       wp_reset_postdata();
+                     }
+               ?>
+               </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="row content-inner-row">
           <div id="ques2t" class="col-sm-12">
             <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="fp-title panel-title">Ques2T</h3>
+              <div class="panel-heading odd">
+                <h1 class="fp-title">Ques2T</h1>
               </div>
               <div class="panel-body">
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
@@ -140,56 +146,78 @@ get_header(); ?>
         </div>
         <div class="row content-inner-row">
           <div class="col-sm-12">
-            <h1 class="fp-title">Skills and Training</h1>
-          </div>
-          <div class="col-sm-6">
             <div class="panel panel-default">
-              <div class="panel-body">
-                <h3 class="fp-title">Delivering Quantum Technologies</h3>
+              <div class="panel-heading even">
+                <h1 class="fp-title">Skills and Training</h1>
               </div>
-            </div>
-          </div>
-          <div class="col-sm-6">
-            <div class="panel panel-default">
               <div class="panel-body">
-                <h3 class="fp-title">Quantum Engineering Skills Hub</h3>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="panel panel-default">
+                      <div class="panel-heading odd">
+                        <p class="fp-title">Delivering Quantum Technologies</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="panel panel-default">
+                      <div class="panel-heading odd">
+                        <p class="fp-title">Quantum Engineering Skills Hub</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
         <div class="row content-inner-row">
-          <div class="col-sm-12">
-            <h1 class="fp-title">Facilities</h1>
-          </div>
-        </div>
-        <div class="equal row content-inner-row">
-          <div class="col-sm-4">
-            <img class="img-responsive" src="http://i.giphy.com/3KMnQJcwcZB0k.gif">
-          </div>
-          <div class="col-sm-4">
-            <img class="img-responsive" src="http://i.giphy.com/uiDCwmi3I3yQo.gif">
-          </div>
-          <div class="col-sm-4">
-            <img class="img-responsive" src="http://i.giphy.com/qjj4xrA1STjfa.gif">
+            <div class="col-sm-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading even">
+                        <h1 class="fp-title">Facilities</h1>
+                    </div>
+                    <div class="panel panel-body">
+                        <div class="equal row content-inner-row">
+                            <div class="col-sm-4">
+                                <img class="img-responsive" src="http://i.giphy.com/3KMnQJcwcZB0k.gif">
+                            </div>
+                            <div class="col-sm-4">
+                                <img class="img-responsive" src="http://i.giphy.com/uiDCwmi3I3yQo.gif">
+                            </div>
+                            <div class="col-sm-4">
+                                <img class="img-responsive" src="http://i.giphy.com/qjj4xrA1STjfa.gif">
+                            </div>
+                        </div>
+                    </div>
+                </div>
           </div>
         </div>
         <div class="row content-inner-row">
           <div class="col-sm-12">
-            <h1 class="fp-title"> Videos</h1>
-          </div>
-          <div class="col-sm-4">
-            <div class="embed-responsive embed-responsive-16by9">
-              <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/SXSJHEkQcmM?rel=0" frameborder="0" allowfullscreen></iframe>
-            </div>
-          </div>
-          <div class="col-sm-4">
-            <div class="embed-responsive embed-responsive-16by9">
-              <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/QN5tns6TIO4?rel=0" frameborder="0" allowfullscreen></iframe>
-            </div>
-          </div>
-          <div class="col-sm-4">
-            <div class="embed-responsive embed-responsive-16by9">
-              <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/hil-tkoIFFw?rel=0" frameborder="0" allowfullscreen></iframe>
+            <div class="panel panel-default">
+              <div class="panel-heading odd">
+                <h1 class="fp-title"> Videos</h1>
+              </div>
+              <div class="panel-body">
+                  <div class="row">
+                  <div class="col-md-4 col-sm-12">
+                    <div class="embed-responsive embed-responsive-16by9">
+                      <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/SXSJHEkQcmM?rel=0" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                  </div>
+                  <div class="col-md-4 col-sm-12">
+                    <div class="embed-responsive embed-responsive-16by9">
+                      <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/QN5tns6TIO4?rel=0" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                  </div>
+                  <div class="col-md-4 col-sm-12">
+                    <div class="embed-responsive embed-responsive-16by9">
+                      <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/hil-tkoIFFw?rel=0" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                  </div>
+                  </div>
+              </div>
             </div>
           </div>
         </div>
