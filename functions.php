@@ -159,6 +159,12 @@ require THEME_DIR_PATH . '/includes/jetpack.php';
  */
 require THEME_DIR_PATH . '/includes/bootstrap-wp-navwalker.php';
 
+/** 
+ * Load custom widgets
+ */
+
+require THEME_DIR_PATH . '/includes/uclq_widgets.php';
+
 /**
  * Adds WooCommerce support
  */

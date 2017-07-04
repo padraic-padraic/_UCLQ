@@ -40,7 +40,7 @@
 
 
         <div class="site-branding">
-         <h3 class="site-title"><?php bloginfo( 'name' ); ?>: <span class="site-description lead"><?php bloginfo( 'description');?></span></h3>
+         <p><span class="site-title"><?php bloginfo( 'name' ); ?>:</span> <span class="site-description"><?php bloginfo( 'description');?></span></p>
         </div>
         <!-- <div id="header_spacer"> -->
         </div>
