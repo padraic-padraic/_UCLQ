@@ -38,16 +38,16 @@ function widget_uclq_style($params) {
 }
 add_filter('dynamic_sidebar_params','widget_uclq_style');
 
-class Foo_Widget extends WP_Widget {
+class UCLQ_Twitter_Widget extends WP_Widget {
 
     /**
      * Register widget with WordPress.
      */
     function __construct() {
         parent::__construct(
-            'foo_widget', // Base ID
-            esc_html__( 'Widget Title', 'text_domain' ), // Name
-            array( 'description' => esc_html__( 'A Foo Widget', 'text_domain' ), ) // Args
+            'uclq_twitter_widget', // Base ID
+            esc_html__( 'UCLQ Twitter Widget', 'text_domain' ), // Name
+            array( 'description' => esc_html__( 'A widget to embed a twitter profile, with the _UCLQ styled panel headings.', 'text_domain' ), ) // Args
         );
     }
 
@@ -64,7 +64,7 @@ class Foo_Widget extends WP_Widget {
         if ( ! empty( $instance['title'] ) ) {
             echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ) . $args['after_title'];
         }
-        echo esc_html__( 'Hello, World!', 'text_domain' );
+        echo '<a class="twitter-timeline" data-height="400" data-link-color="#E81C4F" href="https://twitter.com/'.$instance['twitter_id'].'">Tweets by '.$instance['twitter_id'].'</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>';
         echo $args['after_widget'];
     }
 
@@ -76,13 +76,18 @@ class Foo_Widget extends WP_Widget {
      * @param array $instance Previously saved values from database.
      */
     public function form( $instance ) {
-        $title = ! empty( $instance['title'] ) ? $instance['title'] : esc_html__( 'New title', 'text_domain' );
+        $title = ! empty( $instance['title'] ) ? $instance['title'] : esc_html__( 'Follow Us On Twitter', 'text_domain' );
+        $twid = ! empty( $instance['twitter_id']) ? $instance['twitter_id'] : esc_html__('uclquantum', 'text_domain');
         ?>
         <p>
         <label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>">
             <?php esc_attr_e( 'Title:', 'text_domain' ); ?>
         </label>
         <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>">
+        <label for="<?php echo esc_attr($this->get_field_id(' twitter_id' ));?>">
+            <?php esc_attr_e('Twitter ID: @', 'text_domain');?>
+        </label>
+        <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'twitter_id' ) );?>" name="<?php echo esc_attr($this->get_field_name( 'twitter_id' ) );?>" type="text" value="<?php echo esc_attr( $twid);?>"
         </p>
         <?php
     }
@@ -99,17 +104,19 @@ class Foo_Widget extends WP_Widget {
      */
     public function update( $new_instance, $old_instance ) {
         $instance = array();
-        $instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
-
+        $instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : $old_instance['title'];
+        $instance['twitter_id'] = ( ! empty( $new_instance['twitter_id'] ) ) ? strip_tags( $new_instance['twitter_id'] ) : $old_instance['twitter_id'];
         return $instance;
     }
 
-} // class Foo_Widget
+} // class UCLQ_Twitter_Widget
+
+
 
 // register Foo_Widget widget
-function register_foo_widget() {
-    register_widget( 'Foo_Widget' );
+function register_uclq_twitter_widget() {
+    register_widget( 'UCLQ_Twitter_Widget' );
 }
-add_action( 'widgets_init', 'register_foo_widget' );
+add_action( 'widgets_init', 'register_uclq_twitter_widget' );
 
 ?>
