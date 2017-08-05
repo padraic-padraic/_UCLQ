@@ -38,6 +38,33 @@ function widget_uclq_style($params) {
 }
 add_filter('dynamic_sidebar_params','widget_uclq_style');
 
+class UCLQ_Events_Widget extends WP_Widget {
+
+    function __construct() {
+        parent::__construct(
+            'uclq_events_widget',
+            esc_html__('UCLQ Events Widget', 'text_domain'),
+            array('description' => esc_html__('A widget to display events from the UCLQ Calendar', 'text_domain'), )
+            );
+    }
+
+    public function widget($args, $instance){
+        echo $args['before_widget'];
+        echo $args['before_title']. apply_filters(widget_title, 'Events') . $args['after_title'];
+        echo '<p> Placeholder</p><p> Placeholder</p><p> Placeholder</p><p> Placeholder</p>';
+        echo $args['after_widget'];
+    }
+
+    public function form($instance){
+        echo '<p class="no-options-widget">' . __('There are no options for this widget.') . '</p>';
+        return 'noform';
+    }
+
+    public function update($new_instance, $old_instance){
+        return $new_instance;
+    }
+}
+
 class UCLQ_Twitter_Widget extends WP_Widget {
 
     /**
@@ -114,9 +141,10 @@ class UCLQ_Twitter_Widget extends WP_Widget {
 
 
 // register Foo_Widget widget
-function register_uclq_twitter_widget() {
+function register_uclq_widgets() {
+    register_widget( 'UCLQ_Events_Widget' );
     register_widget( 'UCLQ_Twitter_Widget' );
 }
-add_action( 'widgets_init', 'register_uclq_twitter_widget' );
+add_action( 'widgets_init', 'register_uclq_widgets' );
 
 ?>
