@@ -9,10 +9,9 @@
 ?>
 <footer id="colophon" class="site-footer" role="contentinfo">
 <?php // substitute the class "container-fluid" below if you want a wider content area ?>
-	<div class="container">
+	<div class="container-fluid">
 		<div class="row">
-			<div class="site-footer-inner col-sm-12">
-
+			<div class="site-footer-inner col-sm-12 no-padded-col">
 				<div class="site-info">
 					<?php do_action( '_UCLQ_credits' ); ?>
 					<a href="http://wordpress.org/" title="<?php esc_attr_e( 'A Semantic Personal Publishing Platform', '_UCLQ' ); ?>" rel="generator"><?php printf( __( 'Proudly powered by %s', '_UCLQ' ), 'WordPress' ); ?></a>

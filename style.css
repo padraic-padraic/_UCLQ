@@ -406,7 +406,7 @@ nav .form-control {
   font-size: 1em;
 }
 
-.content-inner-row {
+.content-inner-row, .widget {
   margin: 10px 0px 10px;
 }
 
@@ -499,7 +499,7 @@ nav .form-control {
   left:auto;
   height:100%;
   width:25%;
-  background-color: rgba(0,0,0,0.95);
+  background-color: rgba(0,0,0,0.85);
   color: #ffffff;
   text-align: center;
 }
@@ -555,7 +555,7 @@ nav .form-control {
   padding: 0px;
 }
 
-.content-inner-row .panel{
+.content-inner-row .panel, .widget{
   border: 0px;
   border-radius: 0px;
   background-color: #fafafa;
@@ -572,16 +572,20 @@ nav .form-control {
   padding-bottom:0px;
 }
 
-.odd{
+.odd, .widget-even{
   background-color:#ba355c !important;
 }
 
-.even{
+.even, .widget-odd{
   background-color:#4b1625 !important;
 }
 
-.fp-title{
+.fp-title, .widget-title{
   color:#ffffff;
+}
+
+.widget-title{
+  text-align: center;
 }
 
 /*.equal, .equal > div[class*='col-'] {
@@ -617,6 +621,10 @@ nav .form-control {
 
 .embed-responsive{
   margin-bottom: 10px;
+}
+
+.sidebar-padder{
+  padding-top: 15%;
 }
 
 .site-footer-inner {
