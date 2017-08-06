@@ -1,6 +1,6 @@
-// Register Custom Post Type
-function uclq_student_type() {
+<?php
 
+function uclq_student_type() {
     $labels = array(
         'name'                  => _x( 'Students', 'Post Type General Name', 'text_domain' ),
         'singular_name'         => _x( 'Student', 'Post Type Singular Name', 'text_domain' ),
@@ -58,7 +58,7 @@ function uclq_student_type() {
         'capability_type'       => 'page',
         'show_in_rest'          => true,
     );
-    register_post_type( 'uclq_stdeunt', $args );
-
+    register_post_type( 'uclq_student', $args );
 }
 add_action( 'init', 'uclq_student_type', 0 );
+?>

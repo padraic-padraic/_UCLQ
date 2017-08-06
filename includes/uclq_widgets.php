@@ -20,20 +20,20 @@ function widget_uclq_style($params) {
     } else { // If not, create it starting with 1
         $my_widget_num[$this_id] = 1;
     }
-    $panel_open='<div';
-    $title_open='<div class="panel-heading ';
-    $title_close='</div>';
-    $class = 'class="panel panel-default '; 
+    // $panel_open='<div';
+    // $title_open='<div class="panel-heading ';
+    // $title_close='</div>';
+    // $class = 'class="panel panel-default '; 
     if(($my_widget_num[$this_id]%2) == 0) { // If this an even numbered widget
-        $title_class = 'widget-even">';
+        $title_class = 'widget-even';
     } else { // If this is an odd numbered widget
-        $title_class = 'widget-odd">';
+        $title_class = 'widget-odd';
     }
-    $params[0]['before_widget'] = str_replace('<aside', $panel_open, $params[0]['before_widget']);
-    $params[0]['before_widget'] = str_replace('class="', $class, $params[0]['before_widget']); // Insert our new classes into "before widget"
-    $params[0]['before_title'] = str_replace('h3', 'h3', $title_open . $title_class . $params[0]['before_title']);
-    $params[0]['after_title'] = str_replace('h3', 'h3', $params[0]['after_title'] . $title_close);
-    $params[0]['after_widget'] = str_replace('/aside', '/div', $params[0]['after_widget']);
+    // $params[0]['before_widget'] = str_replace('<aside', $panel_open, $params[0]['before_widget']);
+    // $params[0]['before_widget'] = str_replace('class="', $class, $params[0]['before_widget']); // Insert our new classes into "before widget"
+    $params[0]['before_title'] = str_replace('class="panel-heading"', 'class="panel-heading '.$title_class.' "', $params[0]['before_title']);
+    // $params[0]['after_title'] = str_replace('h3', 'h3', $params[0]['after_title'] . $title_close);
+    // $params[0]['after_widget'] = str_replace('/aside', '/div', $params[0]['after_widget']);
     return $params;
 }
 add_filter('dynamic_sidebar_params','widget_uclq_style');

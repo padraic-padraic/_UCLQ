@@ -85,10 +85,10 @@ function _UCLQ_widgets_init() {
 	register_sidebar( array(
 		'name'          => __( 'Sidebar', '_UCLQ' ),
 		'id'            => 'sidebar-1',
-		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-		'after_widget'  => '</aside>',
-		'before_title'  => '<h3 class="widget-title">',
-		'after_title'   => '</h3>',
+		'before_widget' => '<div id="%1$s" class="panel panel-default widget %2$s">',
+		'after_widget'  => '</div></div>',
+		'before_title'  => '<div class="panel-heading"><h3 class="widget-title">',
+		'after_title'   => '</h3></div><div class="panel-body">',
 		) );
 }
 add_action( 'widgets_init', '_UCLQ_widgets_init' );
@@ -158,6 +158,12 @@ require THEME_DIR_PATH . '/includes/jetpack.php';
  * Load custom WordPress nav walker.
  */
 require THEME_DIR_PATH . '/includes/bootstrap-wp-navwalker.php';
+
+/** 
+ * Load custom UCLQ Member types
+ */
+
+require THEME_DIR_PATH .'/includes/uclq_members.php';
 
 /** 
  * Load custom widgets
