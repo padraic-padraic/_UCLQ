@@ -38,6 +38,13 @@ function widget_uclq_style($params) {
 }
 add_filter('dynamic_sidebar_params','widget_uclq_style');
 
+function echo_widget_title($args, $instance){
+    echo $args['before_widget'];
+    if ( ! empty( $instance['title'] ) ) {
+        echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ) . $args['after_title'];
+    }
+}
+
 class UCLQ_Events_Widget extends WP_Widget {
 
     function __construct() {
@@ -87,10 +94,7 @@ class UCLQ_Twitter_Widget extends WP_Widget {
      * @param array $instance Saved values from database.
      */
     public function widget( $args, $instance ) {
-        echo $args['before_widget'];
-        if ( ! empty( $instance['title'] ) ) {
-            echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ) . $args['after_title'];
-        }
+        echo_widget_title($args, $instance);
         echo '<a class="twitter-timeline" data-height="400" data-link-color="#E81C4F" href="https://twitter.com/'.$instance['twitter_id'].'">Tweets by '.$instance['twitter_id'].'</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>';
         echo $args['after_widget'];
     }
@@ -137,8 +141,6 @@ class UCLQ_Twitter_Widget extends WP_Widget {
     }
 
 } // class UCLQ_Twitter_Widget
-
-
 
 // register Foo_Widget widget
 function register_uclq_widgets() {

@@ -130,6 +130,28 @@ function _UCLQ_scripts() {
 add_action( 'wp_enqueue_scripts', '_UCLQ_scripts' );
 
 /**
+ * Move the featured image meta box to be high priority. Keep it on the side if it's a post, 
+ or put it in the main area if it's a student/staff.
+ */
+ function move_featured_image($post_type, $context, $post){
+	remove_meta_box( 'postimagediv', 'rotator', 'side' );
+ 	if ($post_type==='post'){
+		add_meta_box('postimagediv', __('Featured Image'), 'post_thumbnail_meta_box', 'rotator', 'side', 'high');
+ 	}
+ 	elseif ($post_type==='uclq_student'){
+		add_meta_box('postimagediv', __('Student Photo'), 'post_thumbnail_meta_box', 'rotator', 'normal', 'high');
+ 	}
+ 	elseif ($post_type==='uclq_staff'){
+		add_meta_box('postimagediv', __('Student Photo'), 'post_thumbnail_meta_box', 'rotator', 'normal', 'high');
+ 	}
+ 	else{
+		add_meta_box('postimagediv', __('Featured Image'), 'post_thumbnail_meta_box', 'rotator', 'side', 'normal');
+ 	}
+ }
+add_action('do_meta_boxes', 'move_featured_image', 10, 3);
+
+
+/**
  * Implement the Custom Header feature.
  */
 require THEME_DIR_PATH . '/includes/custom-header.php';
@@ -163,7 +185,7 @@ require THEME_DIR_PATH . '/includes/bootstrap-wp-navwalker.php';
  * Load custom UCLQ Member types
  */
 
-require THEME_DIR_PATH .'/includes/uclq_members.php';
+require THEME_DIR_PATH .'/includes/uclq_students.php';
 
 /** 
  * Load custom widgets
