@@ -93,10 +93,10 @@ function display_student_columns($column, $post_id){
         case 'graduated':
             $graduated = get_post_meta($post_id, 'graduated', true);
             if ($graduated === True){
-                echo 'Graduated';
+                echo 'Yes';
             }
             else {
-                echo 'Still Enrolled';
+                echo 'No';
             }
             break;
     }
@@ -126,7 +126,6 @@ function student_details_meta_box($post) {
     $diff = $now->diff($then);
     $years = $diff->y +1;
     meta_style();
-    echo '<div>'.$student_graduated.'</div>'
     ?>
     <div class="form-row">
     <label for="uclq_programme">Programme Title:</label>
@@ -148,7 +147,7 @@ function student_details_meta_box($post) {
     </div>
     <div class="form-row">
     <label for="uclq_graduated">Graduated?</label>
-    <input type="checkbox" <?php if($student_graduated){echo 'checked';}?>>
+    <input name="uclq_graduated" type="checkbox" <?php if($student_graduated){echo 'checked';}?>>
     </div>
     <?php
 }
@@ -182,7 +181,7 @@ function save_uclq_student_meta( $post_id ) {
 
 add_action( 'init', 'uclq_student_type', 0 );
 add_filter('manage_uclq_student_posts_columns', 'student_columns');
-add_filter('manage_uclq_students_posts_custom_column', 'display_student_columns', 10, 2);
-add_filter('manage_uclq_students_sortable_columns', 'sortable_student_columns');
+add_filter('manage_uclq_student_posts_custom_column', 'display_student_columns', 10, 2);
+add_filter('manage_uclq_student_sortable_columns', 'sortable_student_columns');
 add_action('add_meta_boxes', 'add_student_meta');   
 ?>
