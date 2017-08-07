@@ -5,6 +5,8 @@
 //         'cohort', 'uclq_student')
 // }
 
+require(get_template_directory() . '/includes/post_types/uclq_meta_style.php');
+
 function uclq_student_type() {
     $labels = array(
         'name'                  => _x( 'Students', 'Post Type General Name', 'text_domain' ),
@@ -111,9 +113,8 @@ function add_student_meta(){
     add_meta_box('student_meta', 'Details', 'student_details_meta_box', 'uclq_student', 'normal');
 }
 
-function student_details_meta_box() {
-    global $post;
-    echo '<input type="hidden" name="quote_post_noncename" value="' . wp_create_nonce( wp_basename(__FILE__) ) . '" />';
+function student_details_meta_box($post) {
+    echo '<input type="hidden" name="uclq_student_noncename" value="' . wp_create_nonce( wp_basename(__FILE__) ) . '" />';
     $student_programme = get_post_meta($post->ID, 'programme', true);
     $student_graduated = get_post_meta($post->ID, 'graduated', true);
     $student_cohort = get_post_meta($post->ID, 'cohort', true);
@@ -124,20 +125,60 @@ function student_details_meta_box() {
     $then = new DateTime("2014-10-01");
     $diff = $now->diff($then);
     $years = $diff->y +1;
+    meta_style();
+    echo '<div>'.$student_graduated.'</div>'
     ?>
-    <label for="uclq_programme">Programme Title</label>
-    <input type="text" name="uclq_programme">
-    <br>
+    <div class="form-row">
+    <label for="uclq_programme">Programme Title:</label>
+    <input type="text" name="uclq_programme" value="<?php echo $student_programme?>">
+    </div>
+    <div class="form-row">
     <label for="uclq_cohort">Cohort:</label>
     <select name="uclq_cohort">
         <?php
         for($x=1; $x<$years+1; $x++){
-            echo '<option value="cohort-'.$x.'">'.$x.'</option>';
+            echo '<option value="'.$x.'" ';
+            if ($student_cohort==$x){
+                echo 'selected';
+            }
+            echo '>'.$x.'</option>';
         }
         ?>
     </select>
+    </div>
+    <div class="form-row">
+    <label for="uclq_graduated">Graduated?</label>
+    <input type="checkbox" <?php if($student_graduated){echo 'checked';}?>>
+    </div>
     <?php
 }
+
+function save_uclq_student_meta( $post_id ) { 
+        if ( ! isset( $_POST['uclq_student_noncename'] ) ) { // Check if our nonce is set.
+            return;
+        }
+        // verify this came from the our screen and with proper authorization,
+        // because save_post can be triggered at other times
+        if( !wp_verify_nonce( $_POST['uclq_student_noncename'], wp_basename(__FILE__) ) ) {
+            return $post_id;
+        }
+ 
+        // is the user allowed to edit the post or page?
+        if( ! current_user_can( 'edit_post', $post_id )){
+            return $post_id;
+        }
+        $uclq_student_meta['programme'] = $_POST['uclq_programme'];
+        $uclq_student_meta['cohort'] = $_POST['uclq_cohort'];
+        $uclq_student_meta['graduated'] = $_POST['uclq_graduated'];
+        // add values as custom fields
+        foreach( $uclq_student_meta as $key => $value ) { // cycle through the $uclq_student_meta array
+            // if( $post->post_type == 'revision' ) return; // don't store custom data twice
+            if ($value){
+                update_post_meta($post_id, $key, $value);
+            }
+        }
+    }
+    add_action( 'save_post', 'save_uclq_student_meta');
 
 add_action( 'init', 'uclq_student_type', 0 );
 add_filter('manage_uclq_student_posts_columns', 'student_columns');

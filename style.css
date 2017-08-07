@@ -635,3 +635,14 @@ nav .form-control {
 .site-footer-inner a{
   color:#fff;
 }
+
+.inside > label{
+  font-size: 16pt;
+}
+
+.inside > input[type=text]{
+  width:50%;
+  padding-top: 2%;
+  padding-bottom: 2%;
+}
+

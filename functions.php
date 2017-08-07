@@ -134,22 +134,20 @@ add_action( 'wp_enqueue_scripts', '_UCLQ_scripts' );
  or put it in the main area if it's a student/staff.
  */
  function move_featured_image($post_type, $context, $post){
-	remove_meta_box( 'postimagediv', 'rotator', 'side' );
  	if ($post_type==='post'){
-		add_meta_box('postimagediv', __('Featured Image'), 'post_thumbnail_meta_box', 'rotator', 'side', 'high');
+		remove_meta_box( 'postimagediv', 'post', 'side' );
+		add_meta_box('postimagediv', __('Featured Image'), 'post_thumbnail_meta_box', 'post', 'side', 'high');
  	}
  	elseif ($post_type==='uclq_student'){
-		add_meta_box('postimagediv', __('Student Photo'), 'post_thumbnail_meta_box', 'rotator', 'normal', 'high');
+		remove_meta_box( 'postimagediv', 'uclq_student', 'side' );
+		add_meta_box('postimagediv', __('Student Photo'), 'post_thumbnail_meta_box', 'uclq_student', 'normal', 'high');
  	}
  	elseif ($post_type==='uclq_staff'){
-		add_meta_box('postimagediv', __('Student Photo'), 'post_thumbnail_meta_box', 'rotator', 'normal', 'high');
- 	}
- 	else{
-		add_meta_box('postimagediv', __('Featured Image'), 'post_thumbnail_meta_box', 'rotator', 'side', 'normal');
+		remove_meta_box( 'postimagediv', 'uclq_staff', 'side' );
+		add_meta_box('postimagediv', __('Student Photo'), 'post_thumbnail_meta_box', 'uclq_staf', 'normal', 'high');
  	}
  }
 add_action('do_meta_boxes', 'move_featured_image', 10, 3);
-
 
 /**
  * Implement the Custom Header feature.
@@ -185,7 +183,7 @@ require THEME_DIR_PATH . '/includes/bootstrap-wp-navwalker.php';
  * Load custom UCLQ Member types
  */
 
-require THEME_DIR_PATH .'/includes/uclq_students.php';
+require THEME_DIR_PATH .'/includes/post_types/uclq_students.php';
 
 /** 
  * Load custom widgets
