@@ -68,52 +68,52 @@ function uclq_student_type() {
     register_post_type( 'uclq_student', $args );
 }
 
-function student_columns( $cols ){
-    $cols = array(
-            'cb'       => '<input type="checkbox" />',
-            'title'    => __('Name', 'student_type'),
-            'cohort'   => __('Cohort', 'student_type'),
-            'programme' => __('Programme', 'student_type'),
-            'graduated' => __('Graduated', 'student_type')
-    );
-    return $cols;
-}
+// function student_columns( $cols ){
+//     $cols = array(
+//             'cb'       => '<input type="checkbox" />',
+//             'title'    => __('Name', 'student_type'),
+//             'cohort'   => __('Cohort', 'student_type'),
+//             'programme' => __('Programme', 'student_type'),
+//             'graduated' => __('Graduated', 'student_type')
+//     );
+//     return $cols;
+// }
 
-function display_student_columns($column, $post_id){
-    switch ($column) {
-        case 'title':
-            echo get_post_title($post_id);
-            break;
-        case 'cohort':
-            $terms = get_the_terms($post_id, 'cohort');
-            $s = '';
-            foreach ($terms as $term){
-                $s = $s .$term->name.', ';
-            }
-            $s = rtrim($s, ', ');
-            echo $s;
-            break;
-        case 'programme':
-            echo get_post_meta($post_id, 'programme', true);
-            break;
-        case 'graduated':
-            $graduated = get_post_meta($post_id, 'graduated', true);
-            if ($graduated === True){
-                echo 'Yes';
-            }
-            else {
-                echo 'No';
-            }
-            break;
-    }
-}
+// function display_student_columns($column, $post_id){
+//     switch ($column) {
+//         case 'title':
+//             echo get_post_title($post_id);
+//             break;
+//         case 'cohort':
+//             $terms = get_the_terms($post_id, 'cohort');
+//             $s = '';
+//             foreach ($terms as $term){
+//                 $s = $s .$term->name.', ';
+//             }
+//             $s = rtrim($s, ', ');
+//             echo $s;
+//             break;
+//         case 'programme':
+//             echo get_post_meta($post_id, 'programme', true);
+//             break;
+//         case 'graduated':
+//             $graduated = get_post_meta($post_id, 'graduated', true);
+//             if ($graduated === True){
+//                 echo 'Yes';
+//             }
+//             else {
+//                 echo 'No';
+//             }
+//             break;
+//     }
+// }
 
-function sortable_student_columns(){
-    return array(
-        'title' => 'title',
-        'cohort' => 'cohort',
-    );
-}
+// function sortable_student_columns(){
+//     return array(
+//         'title' => 'title',
+//         'cohort' => 'cohort',
+//     );
+// }
 
 function student_register_cohort_taxonomy()
 {
@@ -294,8 +294,8 @@ add_action('init', 'student_register_cohort_taxonomy');
 add_action('init', 'student_register_programme_taxonomy');
 add_action('init', 'student_register_graduate_taxonomy');
 add_action( 'init', 'uclq_student_type', 0 );
-add_filter('manage_uclq_student_posts_columns', 'student_columns');
-add_filter('manage_uclq_student_posts_custom_column', 'display_student_columns', 10, 2);
-add_filter('manage_uclq_student_sortable_columns', 'sortable_student_columns');
+// add_filter('manage_uclq_student_posts_columns', 'student_columns');
+// add_filter('manage_uclq_student_posts_custom_column', 'display_student_columns', 10, 2);
+// add_filter('manage_uclq_student_sortable_columns', 'sortable_student_columns');
 add_action('add_meta_boxes', 'add_student_meta');   
 ?>
