@@ -182,10 +182,37 @@ function student_register_programme_taxonomy()
         'show_ui' => true,
         'show_admin_column' => true,
         'query_var' => true,
-        'rewrite' => ['slug' => 'cohort'],
+        'rewrite' => ['slug' => 'programme'],
         'sort' => true,
     ];
     register_taxonomy('programme', ['uclq_student'], $args);
+}
+
+function student_register_graduate_taxonomy()
+{
+    $labels = [
+        'name' => _x('Graduated', 'taxonomy general name', 'student_cohort'),
+        'singular_name' => _x('Graduated', 'taxonomy singular name', 'student_cohort'),
+        'search_items' => __('Search Graduated'),
+        'all_items' => __('All Graduateds'),
+        'edit_item' => __('Edit Graduated'),
+        'update_item' => __('Update Graduated'),
+        'add_new_item' => __('Add New Graduated'),
+        'new_item_name' => __('New Graduated'),
+        'menu_name' => __('Graduated')
+    ];
+    $args = [
+        'hierarchical' => false,
+        'labels' => $labels,
+        'show_ui' => true,
+        'show_admin_column' => true,
+        'query_var' => true,
+        'rewrite' => ['slug' => 'graduated'],
+        'sort' => true,
+    ];
+    register_taxonomy('graduated', ['uclq_student'], $args);
+    wp_insert_term('0', 'graduated', array('slug'=>'still-studying'));
+    wp_insert_term('1', 'graduated', array('slug'=>'graduated'));
 }
 
 function add_student_meta(){
@@ -195,9 +222,8 @@ function add_student_meta(){
 function student_details_meta_box($post) {
     $cohorts = get_terms(array('taxonomy'=>'cohort', 'hide_empty'=>0));
     $post_cohort = array_shift(wp_get_post_terms($post->ID, 'cohort'));
+    $post_graduate = array_shift(wp_get_post_terms($post->ID, 'graduated'));
     echo '<input type="hidden" name="uclq_student_noncename" value="' . wp_create_nonce( wp_basename(__FILE__) ) . '" />';
-    $student_programme = get_post_meta($post->ID, 'programme', true);
-    $student_graduated = get_post_meta($post->ID, 'graduated', true);
     $student_research = get_post_meta($post->ID, 'research', true);    
     $student_supervisor = get_post_meta($post->ID, 'supervisor', true);
     /*TODO: Computationally determine if they have a project yet, and grey out the form accordingly*/
@@ -219,7 +245,7 @@ function student_details_meta_box($post) {
     </div>
     <div class="form-row">
     <label for="uclq_graduated">Graduated?</label>
-    <input name="uclq_graduated" type="checkbox" <?php if($student_graduated){echo 'checked';}?>>
+    <input name="uclq_graduated" type="checkbox" <?php if($post_graduate->name=='1'){echo 'checked';}?>>
     </div>
     <?php
 }
@@ -238,23 +264,35 @@ function save_uclq_student_meta( $post_id ) {
             return $post_id;
         }
         $new_cohort = $_POST['uclq_cohort'];
-        $uclq_student_meta['graduated'] = $_POST['uclq_graduated'];
-        foreach( $uclq_student_meta as $key => $value ) { // cycle through the $uclq_student_meta array
-            if ($value){
-                update_post_meta($post_id, $key, $value);
-            }
+        if (! empty($_POST['uclq_graduated'])){
+            $new_graduated = '1';
+        } else {
+            $new_graduated = '0';
         }
-       $cohorts = get_terms(array('taxonomy'=>'cohort', 'hide_empty'=>false));
-       foreach($cohorts as $cohort){
+        // $uclq_student_meta['graduated'] = $_POST['uclq_graduated'];
+        // foreach( $uclq_student_meta as $key => $value ) { // cycle through the $uclq_student_meta array
+        //     if ($value){
+        //         update_post_meta($post_id, $key, $value);
+        //     }
+        // }
+        $cohorts = get_terms(array('taxonomy'=>'cohort', 'hide_empty'=>false));
+        $grad_status = get_terms(array('taxonomy'=>'graduated', 'hide_empty'=>false));
+        foreach($cohorts as $cohort){
             if($cohort->name == $new_cohort){
                 wp_set_object_terms($post_id, $cohort->term_id,'cohort',false);
             }
-       }
+        }
+        foreach ($grad_status as $grad) {
+           if($grad->name == $new_graduated){
+                wp_set_object_terms($post_id, $grad->term_id,'graduated',false);
+           }
+        }
     }
     add_action( 'save_post', 'save_uclq_student_meta');
 
 add_action('init', 'student_register_cohort_taxonomy');
 add_action('init', 'student_register_programme_taxonomy');
+add_action('init', 'student_register_graduate_taxonomy');
 add_action( 'init', 'uclq_student_type', 0 );
 add_filter('manage_uclq_student_posts_columns', 'student_columns');
 add_filter('manage_uclq_student_posts_custom_column', 'display_student_columns', 10, 2);
