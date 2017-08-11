@@ -85,7 +85,13 @@ function display_student_columns($column, $post_id){
             echo get_post_title($post_id);
             break;
         case 'cohort':
-            echo get_post_meta($post_id, 'cohort', true);
+            $terms = get_the_terms($post_id, 'cohort');
+            $s = '';
+            foreach ($terms as $term){
+                $s = $s .$term->name.', ';
+            }
+            $s = rtrim($s, ', ');
+            echo $s;
             break;
         case 'programme':
             echo get_post_meta($post_id, 'programme', true);
@@ -109,41 +115,107 @@ function sortable_student_columns(){
     );
 }
 
-function add_student_meta(){
-    add_meta_box('student_meta', 'Details', 'student_details_meta_box', 'uclq_student', 'normal');
-}
-
-function student_details_meta_box($post) {
-    echo '<input type="hidden" name="uclq_student_noncename" value="' . wp_create_nonce( wp_basename(__FILE__) ) . '" />';
-    $student_programme = get_post_meta($post->ID, 'programme', true);
-    $student_graduated = get_post_meta($post->ID, 'graduated', true);
-    $student_cohort = get_post_meta($post->ID, 'cohort', true);
-    $student_research = get_post_meta($post->ID, 'research', true);    
-    $student_supervisor = get_post_meta($post->ID, 'supervisor', true);
-    /*TODO: Computationally determine if they have a project yet, and grey out the form accordingly*/
+function student_register_cohort_taxonomy()
+{
+    $labels = [
+        'name' => _x('Cohorts', 'taxonomy general name', 'student_cohort'),
+        'singular_name' => _x('Cohort', 'taxonomy singular name', 'student_cohort'),
+        'search_items' => __('Search Cohorts'),
+        'all_items' => __('All Cohorts'),
+        'edit_item' => __('Edit Cohort'),
+        'update_item' => __('Update Cohort'),
+        'add_new_item' => __('Add New Cohort'),
+        'new_item_name' => __('New Cohort'),
+        'menu_name' => __('Cohort')
+    ];
+    $args = [
+        'hierarchical' => true,
+        'labels' => $labels,
+        'show_ui' => false,
+        'show_admin_column' => true,
+        'query_var' => true,
+        'rewrite' => ['slug' => 'cohort'],
+        'sort' => true,
+        capabilities => array(
+                'manage_terms' => 'non_exsistant',
+                'edit_terms' => 'non_exsistant',
+                'delete_terms' => 'non_exsistant',
+                'assign_terms' => 'edit_posts'
+            ),
+    ];
+    register_taxonomy('cohort', ['uclq_student'], $args);
     $now = new DateTime("now");
     $then = new DateTime("2014-10-01");
     $diff = $now->diff($then);
-    $years = $diff->y +1;
+    $years = $diff->y + 1;
+    $cohorts = get_terms(array('taxonomy'=>'cohort', 'hide_empty'=>false));
+    $max_year = 0;
+    foreach($cohorts as $cohort){
+        $cohort_int = (int)$cohort->name;
+        if ($cohort_int > $max_year){
+            $max_year = $cohort_int;
+        }
+    }
+    if ($max_year < $years){
+        for ($x = $max_year; $x<$years+1; $x++){
+            wp_insert_term($x, 'cohort', array('slug' => 'cohort-'.$x));
+        }
+    }
+}
+
+function student_register_programme_taxonomy()
+{
+    $labels = [
+        'name' => _x('Programmes', 'taxonomy general name', 'student_cohort'),
+        'singular_name' => _x('Programme', 'taxonomy singular name', 'student_cohort'),
+        'search_items' => __('Search Programmes'),
+        'all_items' => __('All Programmes'),
+        'edit_item' => __('Edit Programme'),
+        'update_item' => __('Update Programme'),
+        'add_new_item' => __('Add New Programme'),
+        'new_item_name' => __('New Programme'),
+        'menu_name' => __('Programme')
+    ];
+    $args = [
+        'hierarchical' => true,
+        'labels' => $labels,
+        'show_ui' => true,
+        'show_admin_column' => true,
+        'query_var' => true,
+        'rewrite' => ['slug' => 'cohort'],
+        'sort' => true,
+    ];
+    register_taxonomy('programme', ['uclq_student'], $args);
+}
+
+function add_student_meta(){
+    add_meta_box('student_meta', 'Details', 'student_details_meta_box', 'uclq_student', 'normal', 'low');
+}
+
+function student_details_meta_box($post) {
+    $cohorts = get_terms(array('taxonomy'=>'cohort', 'hide_empty'=>0));
+    $post_cohort = array_shift(wp_get_post_terms($post->ID, 'cohort'));
+    echo '<input type="hidden" name="uclq_student_noncename" value="' . wp_create_nonce( wp_basename(__FILE__) ) . '" />';
+    $student_programme = get_post_meta($post->ID, 'programme', true);
+    $student_graduated = get_post_meta($post->ID, 'graduated', true);
+    $student_research = get_post_meta($post->ID, 'research', true);    
+    $student_supervisor = get_post_meta($post->ID, 'supervisor', true);
+    /*TODO: Computationally determine if they have a project yet, and grey out the form accordingly*/
     meta_style();
     ?>
     <div class="form-row">
-    <label for="uclq_programme">Programme Title:</label>
-    <input type="text" name="uclq_programme" value="<?php echo $student_programme?>">
-    </div>
-    <div class="form-row">
-    <label for="uclq_cohort">Cohort:</label>
-    <select name="uclq_cohort">
-        <?php
-        for($x=1; $x<$years+1; $x++){
-            echo '<option value="'.$x.'" ';
-            if ($student_cohort==$x){
-                echo 'selected';
+      <label for="uclq_cohort">Cohort</label>
+      <select name="uclq_cohort">
+      <?php 
+      foreach ($cohorts as $cohort) {
+          echo '<option value="'.$cohort->name.'"';
+            if ($cohort->name == $post_cohort->name){
+                echo " selected";
             }
-            echo '>'.$x.'</option>';
-        }
-        ?>
-    </select>
+            echo '>Cohort '. $cohort->name . '</option>';
+      }
+      ?>
+      </select>
     </div>
     <div class="form-row">
     <label for="uclq_graduated">Graduated?</label>
@@ -160,25 +232,29 @@ function save_uclq_student_meta( $post_id ) {
         // because save_post can be triggered at other times
         if( !wp_verify_nonce( $_POST['uclq_student_noncename'], wp_basename(__FILE__) ) ) {
             return $post_id;
-        }
- 
+        } 
         // is the user allowed to edit the post or page?
         if( ! current_user_can( 'edit_post', $post_id )){
             return $post_id;
         }
-        $uclq_student_meta['programme'] = $_POST['uclq_programme'];
-        $uclq_student_meta['cohort'] = $_POST['uclq_cohort'];
+        $new_cohort = $_POST['uclq_cohort'];
         $uclq_student_meta['graduated'] = $_POST['uclq_graduated'];
-        // add values as custom fields
         foreach( $uclq_student_meta as $key => $value ) { // cycle through the $uclq_student_meta array
-            // if( $post->post_type == 'revision' ) return; // don't store custom data twice
             if ($value){
                 update_post_meta($post_id, $key, $value);
             }
         }
+       $cohorts = get_terms(array('taxonomy'=>'cohort', 'hide_empty'=>false));
+       foreach($cohorts as $cohort){
+            if($cohort->name == $new_cohort){
+                wp_set_object_terms($post_id, $cohort->term_id,'cohort',false);
+            }
+       }
     }
     add_action( 'save_post', 'save_uclq_student_meta');
 
+add_action('init', 'student_register_cohort_taxonomy');
+add_action('init', 'student_register_programme_taxonomy');
 add_action( 'init', 'uclq_student_type', 0 );
 add_filter('manage_uclq_student_posts_columns', 'student_columns');
 add_filter('manage_uclq_student_posts_custom_column', 'display_student_columns', 10, 2);
