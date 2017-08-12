@@ -204,7 +204,7 @@ function student_register_graduate_taxonomy()
     $args = [
         'hierarchical' => false,
         'labels' => $labels,
-        'show_ui' => true,
+        'show_ui' => false,
         'show_admin_column' => true,
         'query_var' => true,
         'rewrite' => ['slug' => 'graduated'],
@@ -217,6 +217,7 @@ function student_register_graduate_taxonomy()
 
 function add_student_meta(){
     add_meta_box('student_meta', 'Details', 'student_details_meta_box', 'uclq_student', 'normal', 'low');
+    add_meta_box('student_research_meta', 'Project', 'student_research_meta_box', 'uclq_student', 'normal','low');
 }
 
 function student_details_meta_box($post) {
@@ -224,8 +225,6 @@ function student_details_meta_box($post) {
     $post_cohort = array_shift(wp_get_post_terms($post->ID, 'cohort'));
     $post_graduate = array_shift(wp_get_post_terms($post->ID, 'graduated'));
     echo '<input type="hidden" name="uclq_student_noncename" value="' . wp_create_nonce( wp_basename(__FILE__) ) . '" />';
-    $student_research = get_post_meta($post->ID, 'research', true);    
-    $student_supervisor = get_post_meta($post->ID, 'supervisor', true);
     /*TODO: Computationally determine if they have a project yet, and grey out the form accordingly*/
     meta_style();
     ?>
@@ -250,45 +249,70 @@ function student_details_meta_box($post) {
     <?php
 }
 
+function student_research_meta_box($post){
+    echo '<input type="hidden" name="uclq_student_noncename" value="' . wp_create_nonce( wp_basename(__FILE__) ) . '" />';
+    $student_research_title = get_post_meta($post->ID, 'research_title', true);
+    $student_research_description = get_post_meta($post->ID, 'research_description', true);   
+    $student_supervisor = get_post_meta($post->ID, 'supervisor', true);
+    ?>
+    <div class="form-row">
+      <label for="uclq_research_title">Project Title:</label>
+      <input type="text" name="uclq_research_title" value="<?php echo $student_research_title; ?>">
+    </div>
+    <div class="form-row">
+      <label for="uclq_supervisor">Supervisor:</label>
+      <input type="text" name="uclq_supervisor" value="<?php echo $student_supervisor; ?>">
+    </div>
+    <div class="form-row">
+      <label for="uclq_research_desc">Project Description:</label><br>
+      <textarea cols="90" rows ="20" name="uclq_research_desc">
+      <?php echo $student_research_description; ?>
+      </textarea>
+    </div>
+    <?php
+}
+
 function save_uclq_student_meta( $post_id ) { 
-        if ( ! isset( $_POST['uclq_student_noncename'] ) ) { // Check if our nonce is set.
-            return;
-        }
-        // verify this came from the our screen and with proper authorization,
-        // because save_post can be triggered at other times
-        if( !wp_verify_nonce( $_POST['uclq_student_noncename'], wp_basename(__FILE__) ) ) {
-            return $post_id;
-        } 
-        // is the user allowed to edit the post or page?
-        if( ! current_user_can( 'edit_post', $post_id )){
-            return $post_id;
-        }
-        $new_cohort = $_POST['uclq_cohort'];
-        if (! empty($_POST['uclq_graduated'])){
-            $new_graduated = '1';
-        } else {
-            $new_graduated = '0';
-        }
-        // $uclq_student_meta['graduated'] = $_POST['uclq_graduated'];
-        // foreach( $uclq_student_meta as $key => $value ) { // cycle through the $uclq_student_meta array
-        //     if ($value){
-        //         update_post_meta($post_id, $key, $value);
-        //     }
-        // }
-        $cohorts = get_terms(array('taxonomy'=>'cohort', 'hide_empty'=>false));
-        $grad_status = get_terms(array('taxonomy'=>'graduated', 'hide_empty'=>false));
-        foreach($cohorts as $cohort){
-            if($cohort->name == $new_cohort){
-                wp_set_object_terms($post_id, $cohort->term_id,'cohort',false);
-            }
-        }
-        foreach ($grad_status as $grad) {
-           if($grad->name == $new_graduated){
-                wp_set_object_terms($post_id, $grad->term_id,'graduated',false);
-           }
+    if ( ! isset( $_POST['uclq_student_noncename'] ) ) { // Check if our nonce is set.
+        return;
+    }
+    // verify this came from the our screen and with proper authorization,
+    // because save_post can be triggered at other times
+    if( !wp_verify_nonce( $_POST['uclq_student_noncename'], wp_basename(__FILE__) ) ) {
+        return $post_id;
+    } 
+    // is the user allowed to edit the post or page?
+    if( ! current_user_can( 'edit_post', $post_id )){
+        return $post_id;
+    }
+    $new_cohort = $_POST['uclq_cohort'];
+    if (! empty($_POST['uclq_graduated'])){
+        $new_graduated = '1';
+    } else {
+        $new_graduated = '0';
+    }
+    $uclq_student_meta['supervisor'] = sanitize_text_field($_POST['uclq_supervisor']);
+    $uclq_student_meta['research_title'] = sanitize_text_field($_POST['uclq_research_title']);
+    $uclq_student_meta['research_description'] = sanitize_textarea_field($_POST['uclq_research_desc']);
+    foreach( $uclq_student_meta as $key => $value ) { // cycle through the $uclq_student_meta array
+        if ($value){
+            update_post_meta($post_id, $key, $value);
         }
     }
-    add_action( 'save_post', 'save_uclq_student_meta');
+    $cohorts = get_terms(array('taxonomy'=>'cohort', 'hide_empty'=>false));
+    $grad_status = get_terms(array('taxonomy'=>'graduated', 'hide_empty'=>false));
+    foreach($cohorts as $cohort){
+        if($cohort->name == $new_cohort){
+            wp_set_object_terms($post_id, $cohort->term_id,'cohort',false);
+        }
+    }
+    foreach ($grad_status as $grad) {
+       if($grad->name == $new_graduated){
+            wp_set_object_terms($post_id, $grad->term_id,'graduated',false);
+       }
+    }
+}
+add_action( 'save_post', 'save_uclq_student_meta');
 
 add_action('init', 'student_register_cohort_taxonomy');
 add_action('init', 'student_register_programme_taxonomy');
