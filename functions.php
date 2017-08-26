@@ -133,12 +133,18 @@ add_action( 'wp_enqueue_scripts', '_UCLQ_scripts' );
  * Move the featured image meta box to be high priority. Keep it on the side if it's a post, 
  or put it in the main area if it's a student/staff.
  */
- function move_featured_image($post_type, $context, $post){
- 	if ($post_type==='post'){
-		remove_meta_box( 'postimagediv', 'post', 'side' );
-		add_meta_box('postimagediv', __('Featured Image'), 'post_thumbnail_meta_box', 'post', 'side', 'high');
+ function cleanup_taxonomy_boxes($post_type, $context, $post){
+ 	if ($post_type==='uclq_student') {
+ 		remove_meta_box('departmentdiv', 'uclq_student', 'side');
  	}
- 	elseif ($post_type==='uclq_student'){
+ 	elseif ($post_type==='uclq_staff'){
+ 		remove_meta_box('departmentdiv', 'uclq_staff', 'side');
+ 		remove_meta_box('job_titlediv', 'uclq_staff', 'side');
+ 	}
+ }
+
+ function move_featured_image($post_type, $context, $post){
+ 	if ($post_type==='uclq_student'){
 		remove_meta_box( 'postimagediv', 'uclq_student', 'side' );
 		add_meta_box('postimagediv', __('Student Photo'), 'post_thumbnail_meta_box', 'uclq_student', 'normal', 'high');
  	}
@@ -147,7 +153,8 @@ add_action( 'wp_enqueue_scripts', '_UCLQ_scripts' );
 		add_meta_box('postimagediv', __('Student Photo'), 'post_thumbnail_meta_box', 'uclq_staf', 'normal', 'high');
  	}
  }
-add_action('do_meta_boxes', 'move_featured_image', 10, 3);
+add_action('do_meta_boxes', 'cleanup_taxonomy_boxes', 10, 3);
+// add_action('do_meta_boxes', 'move_featured_image', 10, 3);
 
 /**
  * Implement the Custom Header feature.
@@ -180,11 +187,13 @@ require THEME_DIR_PATH . '/includes/jetpack.php';
 require THEME_DIR_PATH . '/includes/bootstrap-wp-navwalker.php';
 
 /** 
- * Load custom UCLQ Member types
+ * Load custom UCLQ Member types and taxonomies
  */
 
 require THEME_DIR_PATH .'/includes/post_types/uclq_students.php';
-
+require THEME_DIR_PATH .'/includes/post_types/uclq_staff.php';
+// require THEME_DIR_PATH .'/includes/post_types/uclq_phd_students.php';
+require THEME_DIR_PATH .'/includes/post_types/extra_taxonomies.php';
 /** 
  * Load custom widgets
  */
