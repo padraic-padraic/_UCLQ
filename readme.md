@@ -1,7 +1,7 @@
 # _UCLQ
 
-A theme for the UCL Quantum website, based on the _tk theme from [Themekrat](http://themekraft.com/store/_tk-free-wordpress-starter-theme-based-o\
-n-twitter-bootstrap/).
+A theme for the UCL Quantum website, based on the _tk theme from (Themekraft)[http://themekraft.com/store/_tk-free-wordpress-starter-theme-based-o\
+n-twitter-bootstrap/].
 
 This is a cusotm theme intended for the UCL Quantum website, built using bootstrap 3. All work is vanilla wordpress with no installed plugins.
 
