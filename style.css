@@ -608,7 +608,15 @@ nav .form-control {
   background: linear-gradient(to bottom, #000 40%, rgba(0, 0, 0, 0) 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 
-.caption >p {
+.thumbnail .facility_caption{
+  position:absolute;
+  width: 100%;
+  bottom:0;
+  background: #000;
+  background: linear-gradient(to top, #000 40%, rgba(0, 0, 0, 0) 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+
+.caption >p, .facility_caption >p {
   color: #fff;
   padding:0;
   margin:0;
@@ -628,7 +636,7 @@ nav .form-control {
 }
 
 .site-footer-inner {
-  height:100px;
+  height:75px;
   background-color: #4b1625;
 }
 
@@ -646,3 +654,15 @@ nav .form-control {
   padding-bottom: 2%;
 }
 
+.credits {
+  color:#fff;
+}
+
+.social-icons{
+  padding-top: 10px;
+  padding-right: 10px;
+}
+
+i {
+  color: #fff;
+}
