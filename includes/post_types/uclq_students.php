@@ -326,6 +326,7 @@ function save_uclq_student_meta( $post_id ) {
             wp_set_object_terms($post_id, $grad->term_id,'graduated',false);
        }
     }
+    return $post_id;
 }
 add_action( 'save_post', 'save_uclq_student_meta');
 

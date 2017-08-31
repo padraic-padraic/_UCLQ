@@ -135,7 +135,7 @@ add_action( 'wp_enqueue_scripts', '_UCLQ_scripts' );
  */
  function cleanup_taxonomy_boxes($post_type, $context, $post){
  	if ($post_type==='uclq_student') {
- 		remove_meta_box('departmentdiv', 'uclq_student', 'side');
+ 		// remove_meta_box('departmentdiv', 'uclq_student', 'side');
  	}
  	elseif ($post_type==='uclq_staff'){
  		remove_meta_box('departmentdiv', 'uclq_staff', 'side');

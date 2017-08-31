@@ -9,7 +9,7 @@ function uclq_facility_type() {
         'archives'              => __( 'Facility Archives', 'text_domain' ),
         'attributes'            => __( 'Facility Attributes', 'text_domain' ),
         'parent_item_colon'     => __( 'Facility Parent', 'text_domain' ),
-        'all_items'             => __( 'All Facility', 'text_domain' ),
+        'all_items'             => __( 'All Facilities', 'text_domain' ),
         'add_new_item'          => __( 'Add New Facility Member', 'text_domain' ),
         'add_new'               => __( 'Add New', 'text_domain' ),
         'new_item'              => __( 'New Facility', 'text_domain' ),
@@ -108,7 +108,7 @@ function facility_meta_box($post){
                 if ($department->name == $post_department->name){
                     echo " selected";
                 }
-                echo '> '.$department->name.'</option>';
+                echo '>'.$department->name.'</option>';
             } 
         ?>
         </select>
@@ -122,33 +122,34 @@ function facility_meta_box($post){
                 if ($facility_type->name == $post_type->name){
                     echo " selected";
                 }
-                echo '> '.$facility_type->name.'</option>';
+                echo '>'.$facility_type->name.'</option>';
             }
             ?>
         </select>
     </div>
     <div class="form-row">
-        <label for="uclq_description">Description:</label><br>
-        <textarea cols="90" rows="20" name="uclq_description">
-<?php echo $facility_description;?>
-        </textarea>
+    <label for="uclq_description">Description:</label><br>
+    <textarea cols="90" rows="20" name="uclq_description">
+<?php if(!empty($post_description)){echo $post_description;}
+?>
+    </textarea>
     </div>
     <?php
 }
 
-function do_facility_meta( $post_id ){
+function do_facility_meta(){
     add_meta_box('facility_meta', 'Details', 'facility_meta_box', 'uclq_facility', 'normal', 'low');
 }
 
-function save_uclq_facility_meta() {
+function save_uclq_facility_meta($post_id) {
     if ( ! isset( $_POST['uclq_facility_noncename'] ) ) { // Check if our nonce is set.
         return;
     }
     // verify this came from the our screen and with proper authorization,
     // because save_post can be triggered at other times
-    if( !wp_verify_nonce( $_POST['uclq_student_noncename'], wp_basename(__FILE__) ) ) {
+    if( !wp_verify_nonce( $_POST['uclq_facility_noncename'], wp_basename(__FILE__) ) ) {
         return $post_id;
-    } 
+    }
     // is the user allowed to edit the post or page?
     if( ! current_user_can( 'edit_post', $post_id )){
         return $post_id;
@@ -161,7 +162,7 @@ function save_uclq_facility_meta() {
     $facility_meta['facility_description'] = sanitize_textarea_field($_POST['uclq_description']);
     $new_department = $_POST['uclq_department'];
     $new_facility_type = $_POST['uclq_facility_type'];
-    foreach( $facility_meta as $key=>$value){
+    foreach( $facility_meta as $key => $value) {
         if ($value){
             update_post_meta($post_id, $key, $value);
         }
@@ -178,11 +179,12 @@ function save_uclq_facility_meta() {
             wp_set_object_terms($post_id, $facility_type->term_id, 'facility_type', false);
         }
     }
+    return $post_id;
 }
+add_action('save_post', 'save_uclq_facility_meta');
 
 
 add_action('init', 'uclq_facility_type', 0);
 add_action('init', 'register_uclq_facility_taxonomy');
 add_action('add_meta_boxes', 'do_facility_meta');
-add_action('save_post', 'save_uclq_facility_meta');
 ?>
