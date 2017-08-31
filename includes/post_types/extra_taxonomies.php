@@ -21,7 +21,7 @@ function register_department_taxonomy()
         'rewrite' => ['slug' => 'department'],
         'sort' => true,
     ];
-    register_taxonomy('department', ['uclq_student', 'uclq_staff'], $args);
+    register_taxonomy('department', ['uclq_student', 'uclq_staff', 'uclq_facility'], $args);
 }
 
 add_action('init', 'register_department_taxonomy');

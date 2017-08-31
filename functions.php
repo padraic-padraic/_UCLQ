@@ -141,6 +141,10 @@ add_action( 'wp_enqueue_scripts', '_UCLQ_scripts' );
  		remove_meta_box('departmentdiv', 'uclq_staff', 'side');
  		remove_meta_box('job_titlediv', 'uclq_staff', 'side');
  	}
+ 	elseif ($post_type==='uclq_facility'){
+ 		remove_meta_box('departmentdiv', 'uclq_facility', 'side');
+ 		remove_meta_box('facility_typediv', 'uclq_facility', 'side');
+ 	}
  }
 
  function move_featured_image($post_type, $context, $post){
@@ -192,6 +196,7 @@ require THEME_DIR_PATH . '/includes/bootstrap-wp-navwalker.php';
 
 require THEME_DIR_PATH .'/includes/post_types/uclq_students.php';
 require THEME_DIR_PATH .'/includes/post_types/uclq_staff.php';
+require THEME_DIR_PATH .'/includes/post_types/uclq_facilities.php';
 // require THEME_DIR_PATH .'/includes/post_types/uclq_phd_students.php';
 require THEME_DIR_PATH .'/includes/post_types/extra_taxonomies.php';
 /** 

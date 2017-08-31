@@ -188,6 +188,10 @@ function save_uclq_staff_meta( $post_id ) {
     if( ! current_user_can( 'edit_post', $post_id )){
         return $post_id;
     }
+    $thumbnail_id = $_POST['_thumbnail_id'];
+    if (!empty($thumbnail_id)){
+        set_post_thumbnail($post_id, $thumbnail_id);
+    }
     $new_job = $_POST['uclq_job'];
     $uclq_staff_meta['group'] = sanitize_text_field($_POST['uclq_group']);
     $uclq_staff_meta['research_title'] = sanitize_text_field($_POST['uclq_research_title']);

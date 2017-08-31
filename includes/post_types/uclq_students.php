@@ -270,7 +270,7 @@ function student_research_meta_box($post){
     <div class="form-row">
       <label for="uclq_research_desc">Project Description:</label><br>
       <textarea cols="90" rows ="20" name="uclq_research_desc">
-      <?php echo $student_research_description; ?>
+<?php echo $student_research_description; ?>
       </textarea>
     </div>
     <?php
